@@ -93,7 +93,12 @@ export function Intraday(props: Props) {
               // Only calculate total visits if rows change
               const total = React.useMemo(
                 () =>
-                  info.rows.reduce((sum, row) => parseFloat(row.values.profit) + sum, 0).toFixed(2),
+                  info.rows
+                    .reduce(
+                      (sum, row) => parseFloat(row.values.profit) + sum,
+                      0,
+                    )
+                    .toFixed(2),
                 [info.rows],
               );
 

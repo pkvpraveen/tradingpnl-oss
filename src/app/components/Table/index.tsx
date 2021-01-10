@@ -20,10 +20,7 @@ export const Table = memo((props: Props) => {
     headerGroups,
     footerGroups,
     rows,
-    visibleColumns,
     prepareRow,
-    setColumnOrder,
-    state,
   } = useTable(
     {
       columns,

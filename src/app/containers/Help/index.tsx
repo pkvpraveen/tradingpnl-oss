@@ -40,7 +40,9 @@ export const Help = () => {
         <Image src={Upload} alt={'Upload to this application'} />
         <Content>View and analyze your pnl graphically</Content>
         <Image src={Success} alt={'View and analyze your pnl graphically'} />
-        <Footer><Link to={process.env.PUBLIC_URL + '/'}>Start Analyzing</Link></Footer>
+        <Footer>
+          <Link to={process.env.PUBLIC_URL + '/'}>Start Analyzing</Link>
+        </Footer>
       </PageWrapper>
     </>
   );

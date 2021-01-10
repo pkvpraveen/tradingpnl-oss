@@ -9,7 +9,10 @@ export function Features() {
   return (
     <>
       <Title as="h2">Analyze your Profit and loss</Title>
-      <Lead>Click  <Link to={process.env.PUBLIC_URL + '/help'}>here</Link> to know how to use this application</Lead>
+      <Lead>
+        Click <Link to={process.env.PUBLIC_URL + '/help'}>here</Link> to know
+        how to use this application
+      </Lead>
       <List>
         <Feature>
           <Content>
