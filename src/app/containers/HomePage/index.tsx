@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { NavBar } from '../NavBar';
-import { Masthead } from './Masthead';
 import { Features } from './Features';
 import { PageWrapper } from 'app/components/PageWrapper';
 
@@ -9,15 +8,14 @@ export function HomePage() {
   return (
     <>
       <Helmet>
-        <title>Home Page</title>
+        <title>Analyze PnL</title>
         <meta
           name="description"
-          content="A React Boilerplate application homepage"
+          content="An application to analyze your trading pnl"
         />
       </Helmet>
       <NavBar />
       <PageWrapper>
-        <Masthead />
         <Features />
       </PageWrapper>
     </>

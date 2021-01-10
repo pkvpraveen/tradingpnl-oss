@@ -1,4 +1,5 @@
 import { GithubRepoFormState } from 'app/containers/GithubRepoForm/types';
+import { ReadPnLState } from 'app/containers/ReadPnL/types';
 import { ThemeState } from 'styles/theme/types';
 // [IMPORT NEW CONTAINERSTATE ABOVE] < Needed for generating containers seamlessly
 
@@ -11,5 +12,6 @@ import { ThemeState } from 'styles/theme/types';
 export interface RootState {
   theme?: ThemeState;
   githubRepoForm?: GithubRepoFormState;
+  readPnL?: ReadPnLState;
   // [INSERT NEW REDUCER KEY ABOVE] < Needed for generating containers seamlessly
 }

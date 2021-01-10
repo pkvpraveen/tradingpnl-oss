@@ -19,7 +19,6 @@ export function ThemeSwitch() {
 
   return (
     <Wrapper>
-      <FormLabel>Select Theme</FormLabel>
       <Themes>
         <Radio
           id="system"
