@@ -15,12 +15,7 @@ import { Fno } from './components/Fno';
 import { Input } from './components/Input';
 import { Intraday } from './components/Intraday';
 import { readPnLSaga } from './saga';
-import {
-  selectDeliveryData,
-  selectFnOData,
-  selectIntradayData,
-  selectReadPnL,
-} from './selectors';
+import { selectDeliveryData, selectFnOData, selectIntradayData } from './selectors';
 import { readPnLActions, reducer, sliceKey } from './slice';
 import { Delivery } from './components/Delivery';
 import { TotalPnL } from './components/TotalPnL';
