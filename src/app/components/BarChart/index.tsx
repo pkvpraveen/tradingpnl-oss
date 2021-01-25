@@ -20,4 +20,6 @@ export const BarChart = memo((props: Props) => {
   );
 });
 
-const Div = styled.div``;
+const Div = styled.div`
+  width: 70%;
+`;

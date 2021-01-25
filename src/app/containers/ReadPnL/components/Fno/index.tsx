@@ -41,8 +41,8 @@ export function Fno(props: Props) {
             Header: 'Expiry Date',
             accessor: 'expiryDate',
             sortType: (a, b) => {
-              var a1 = moment(a.original.tradeDate, 'DD-MM-YYYY');
-              var b1 = moment(b.original.tradeDate, 'DD-MM-YYYY');
+              const a1 = moment(a.original.expiryDate, 'DD-MM-YYYY');
+              const b1 = moment(b.original.expiryDate, 'DD-MM-YYYY');
               if (a1.isBefore(b1)) return 1;
               else if (b1.isBefore(a1)) return -1;
               else return 0;
@@ -162,7 +162,7 @@ export function Fno(props: Props) {
   });
   sortedByDate.forEach(row => {
     const profit = parseFloat(row[10]) - parseFloat(row[7]);
-    const date = moment(row[3], 'DD-MM-YYYY').format('MMM YYYY');
+    const date = moment(row[3], 'DD-MM-YYYY').format('DD MMM YYYY');
     if (!graphData[date]) {
       graphData[date] = profit;
     } else {
