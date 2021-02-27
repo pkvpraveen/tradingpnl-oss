@@ -27,6 +27,7 @@ import { ThemeProvider } from 'styles/theme/ThemeProvider';
 
 // Initialize languages
 import './locales/i18n';
+import ReactGA from 'react-ga';
 
 // Observe loading of Inter (to remove 'Inter', remove the <link> tag in
 // the index.html file and this observer)
@@ -39,7 +40,8 @@ openSansObserver.load().then(() => {
 
 const store = configureAppStore();
 const MOUNT_NODE = document.getElementById('root') as HTMLElement;
-
+ReactGA.initialize('G-CQQ0X96YX9');
+ReactGA.pageview(window.location.pathname + window.location.search);
 ReactDOM.render(
   <Provider store={store}>
     <ThemeProvider>

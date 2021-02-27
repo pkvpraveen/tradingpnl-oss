@@ -22,11 +22,14 @@ export function App() {
   return (
     <BrowserRouter>
       <Helmet
-        titleTemplate="%s - React Boilerplate"
-        defaultTitle="React Boilerplate"
+        titleTemplate="%s - Trading P&L"
+        defaultTitle="Trading P&L"
         htmlAttributes={{ lang: i18n.language }}
       >
-        <meta name="description" content="A React Boilerplate application" />
+        <meta
+          name="description"
+          content="An application to analyze your trading pnl"
+        />
       </Helmet>
 
       <Switch>
