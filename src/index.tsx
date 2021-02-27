@@ -40,7 +40,7 @@ openSansObserver.load().then(() => {
 
 const store = configureAppStore();
 const MOUNT_NODE = document.getElementById('root') as HTMLElement;
-ReactGA.initialize('G-CQQ0X96YX9');
+ReactGA.initialize('G-VRTVBJJ0JP');
 ReactGA.pageview(window.location.pathname + window.location.search);
 ReactDOM.render(
   <Provider store={store}>
