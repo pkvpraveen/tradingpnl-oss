@@ -8,6 +8,7 @@ import moment from 'moment';
 import { Table } from 'app/components/Table';
 import { BarChart } from 'app/components/BarChart';
 import { useTheme } from 'styled-components';
+import { ExpiryWisePnLGraph } from './ExpiryWisePnLGraph';
 
 interface Props {
   fnoData: any;
@@ -181,7 +182,7 @@ export function Fno(props: Props) {
           labels: Object.keys(graphData),
           datasets: [
             {
-              label: 'Profit',
+              label: 'Date Wise P&L',
               data: Object.values(graphData).map((v: any) => v.toFixed(2)),
               backgroundColor: Object.values(graphData).map((v: any) =>
                 v > 0 ? 'rgba(11, 156, 49, 0.7)' : 'rgba(255, 0, 0, 0.7)',
@@ -195,6 +196,7 @@ export function Fno(props: Props) {
         }}
         options={options}
       />
+      <ExpiryWisePnLGraph />
       <Table columns={columns} data={data} />
     </div>
   );
