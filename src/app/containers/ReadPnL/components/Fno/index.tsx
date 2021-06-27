@@ -37,8 +37,8 @@ export function Fno(props: Props) {
             Header: 'Buy Date',
             accessor: 'buyDate',
             sortType: (a, b) => {
-              const a1 = moment(a.original.expiryDate, 'DD-MM-YYYY');
-              const b1 = moment(b.original.expiryDate, 'DD-MM-YYYY');
+              const a1 = moment(a.original.buyDate, 'DD-MM-YYYY');
+              const b1 = moment(b.original.buyDate, 'DD-MM-YYYY');
               if (a1.isBefore(b1)) return 1;
               else if (b1.isBefore(a1)) return -1;
               else return 0;
@@ -49,8 +49,8 @@ export function Fno(props: Props) {
             Header: 'Sell Date',
             accessor: 'sellDate',
             sortType: (a, b) => {
-              const a1 = moment(a.original.expiryDate, 'DD-MM-YYYY');
-              const b1 = moment(b.original.expiryDate, 'DD-MM-YYYY');
+              const a1 = moment(a.original.sellDate, 'DD-MM-YYYY');
+              const b1 = moment(b.original.sellDate, 'DD-MM-YYYY');
               if (a1.isBefore(b1)) return 1;
               else if (b1.isBefore(a1)) return -1;
               else return 0;
@@ -90,6 +90,13 @@ export function Fno(props: Props) {
           {
             Header: 'P&L',
             accessor: 'pnl',
+            sortType: (a, b) => {
+              const a1 = a.original.pnl;
+              const b1 = b.original.pnl;
+              if (a1 < b1) return 1;
+              else if (b1 < a1) return -1;
+              else return 0;
+            },
             Footer: info => {
               // Only calculate total visits if rows change
               const total = React.useMemo(

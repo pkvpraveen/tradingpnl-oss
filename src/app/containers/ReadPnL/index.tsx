@@ -83,15 +83,6 @@ export const ReadPnL = memo((props: Props) => {
           <TotalPnL />
         </>
       )}
-      {deliveryData && deliveryData.trades.length > 0 && (
-        <>
-          <Title as="h2">Delivery</Title>
-          <h3
-            style={{ color: theme.text }}
-          >{`Total Profit ₹${deliveryData.netPnL}`}</h3>
-          <Delivery deliveryData={deliveryData} />
-        </>
-      )}
       {fnoData && fnoData.trades.length > 0 && (
         <>
           <Title as="h2">FnO</Title>
@@ -99,6 +90,15 @@ export const ReadPnL = memo((props: Props) => {
             style={{ color: theme.text }}
           >{`Total Profit ₹${fnoData.netPnL}`}</h3>
           <Fno fnoData={fnoData} />
+        </>
+      )}
+      {deliveryData && deliveryData.trades.length > 0 && (
+        <>
+          <Title as="h2">Delivery</Title>
+          <h3
+            style={{ color: theme.text }}
+          >{`Total Profit ₹${deliveryData.netPnL}`}</h3>
+          <Delivery deliveryData={deliveryData} />
         </>
       )}
     </>
