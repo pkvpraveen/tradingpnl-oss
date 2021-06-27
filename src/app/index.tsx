@@ -27,7 +27,7 @@ export function App() {
     color: '#aaa',
     align: 'end',
     anchor: 'end',
-    formatter: function(value, context) {
+    formatter: function (value, context) {
       return '₹' + value;
     },
   });
