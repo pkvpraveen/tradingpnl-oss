@@ -24,10 +24,14 @@ export const {
   name: sliceKey,
 } = readPnLSlice;
 
+function getCharges(rows) {
+  return rows.filter(r => r[0] === 'TOTAL')[0][1];
+}
+
 function transformData(rows) {
   const grossPnL = parseFloat(rows[8][1]);
   const netPnL = parseFloat(rows[9][1]);
-  const charges = parseFloat(rows[20][1]);
+  const charges = parseFloat(getCharges(rows));
   const trades: Array<Array<string>> = [];
   let started = false;
   let ended = false;
