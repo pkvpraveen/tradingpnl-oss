@@ -96,7 +96,7 @@ export function Delivery(props: Props) {
         ],
       },
     ],
-    [],
+    [deliveryData.charges, deliveryData.netPnL],
   );
   const data = deliveryData.trades.slice(1).map(row => {
     return {

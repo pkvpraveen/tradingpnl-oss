@@ -111,7 +111,7 @@ export function Fno(props: Props) {
         ],
       },
     ],
-    [],
+    [fnoData.charges, fnoData.netPnL],
   );
   const data = fnoData.trades.map(row => {
     return {
@@ -130,18 +130,10 @@ export function Fno(props: Props) {
   });
   const graphData: any = {};
   const sortedByDate = fnoData.trades;
-  //   .sort((a, b) => {
-  //   var a1 = moment(a[5], 'DD-MM-YYYY');
-  //   var b1 = moment(b[5], 'DD-MM-YYYY');
-  //   if (a1.isBefore(b1)) return -1;
-  //   else if (b1.isBefore(a1)) return 1;
-  //   else return 0;
-  // });
   sortedByDate.forEach(row => {
     const profit = parseFloat(row[14]);
     const buyDate = moment(row[5], 'DD-MM-YYYY');
     const sellDate = moment(row[9], 'DD-MM-YYYY');
-    console.log({buyDate, sellDate});
     const date = (buyDate.isAfter(sellDate) ? buyDate : sellDate).format(
       'DD MMM YYYY',
     );
