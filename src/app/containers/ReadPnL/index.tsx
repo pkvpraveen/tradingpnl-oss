@@ -35,23 +35,20 @@ export const ReadPnL = memo((props: Props) => {
 
   function getFile(event) {
     readXlsxFile(event.target.files[0]).then(rows => {
-      dispatch(readPnLActions.loadIntradayData(rows));
-    });
-    readXlsxFile(event.target.files[0], { sheet: 2 }).then(rows => {
-      dispatch(readPnLActions.loadFnOData(rows));
+      dispatch(readPnLActions.loadEQData(rows));
     });
   }
 
   function calculateTotalDeliveryProfit(deliveryData) {
     let totalProfit = 0;
-    deliveryData.slice(1).forEach((row: Array<string>) => {
-      const sellQty = parseInt(row[5]);
-      const sellAvg = parseFloat(row[6]);
-      const buyAvg = parseFloat(row[3]);
-
-      const realizedProfit = sellQty * (sellAvg - buyAvg);
-      totalProfit += realizedProfit;
-    });
+    // deliveryData.slice(1).forEach((row: Array<string>) => {
+    //   const sellQty = parseInt(row[5]);
+    //   const sellAvg = parseFloat(row[6]);
+    //   const buyAvg = parseFloat(row[3]);
+    //
+    //   const realizedProfit = sellQty * (sellAvg - buyAvg);
+    //   totalProfit += realizedProfit;
+    // });
     return totalProfit.toFixed(2);
   }
 
@@ -88,7 +85,7 @@ export const ReadPnL = memo((props: Props) => {
           <Input type="file" placeholder="upload PnL" onChange={getFile} />
         </InputWrapper>
       </FormGroup>
-      {(deliveryData.length > 0 ||
+      {((deliveryData && deliveryData?.trades.length > 0) ||
         fnoData.length > 0 ||
         intradayData.length > 0) && (
         <>
@@ -105,12 +102,12 @@ export const ReadPnL = memo((props: Props) => {
           />
         </>
       )}
-      {deliveryData.length > 0 && (
+      {deliveryData && deliveryData.trades.length > 0 && (
         <>
           <Title as="h2">Delivery</Title>
           <h3
             style={{ color: theme.text }}
-          >{`Total Profit ₹${totalProfitDelivery}`}</h3>
+          >{`Total Profit ₹${deliveryData.netPnL}`}</h3>
           <Delivery deliveryData={deliveryData} />
         </>
       )}

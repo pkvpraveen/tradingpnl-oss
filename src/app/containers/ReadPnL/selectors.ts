@@ -15,7 +15,7 @@ export const selectIntradayData = createSelector(
     let intradayStarted = false;
     let intradayEnded = false;
     const intraday: Array<Array<string>> = [];
-    readPnLState?.intradayData?.forEach((row: Array<string>) => {
+    readPnLState?.eqData?.trades.forEach((row: Array<string>) => {
       if (row[1] === 'Scrip Name') {
         intradayStarted = true;
       }
@@ -55,24 +55,6 @@ export const selectFnOData = createSelector([selectDomain], readPnLState => {
 export const selectDeliveryData = createSelector(
   [selectDomain],
   readPnlState => {
-    let count = 0;
-    let deliveryStarted = false;
-    let deliveryEnded = false;
-    const delivery: Array<Array<string>> = [];
-    readPnlState?.intradayData?.forEach((row: Array<string>) => {
-      if (row[1] === 'Scrip Name') {
-        count++;
-      }
-      if (count > 1) {
-        deliveryStarted = true;
-      }
-      if (deliveryStarted && row[1] === null) {
-        deliveryEnded = true;
-      }
-      if (deliveryStarted && !deliveryEnded) {
-        delivery.push(row.slice(1, row.length - 1));
-      }
-    });
-    return delivery;
+    return readPnlState.eqData;
   },
 );

@@ -1,6 +1,11 @@
 /* --- STATE --- */
 export interface ReadPnLState {
-  intradayData?: [];
+  eqData?: {
+    grossPnL: number;
+    netPnL: number;
+    charges: number;
+    trades: Array<Array<string>>;
+  };
   fnoData?: [];
 }
 
