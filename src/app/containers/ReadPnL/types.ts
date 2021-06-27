@@ -6,7 +6,12 @@ export interface ReadPnLState {
     charges: number;
     trades: Array<Array<string>>;
   };
-  fnoData?: [];
+  fnoData?: {
+    grossPnL: number;
+    netPnL: number;
+    charges: number;
+    trades: Array<Array<string>>;
+  };
 }
 
 export type ContainerState = ReadPnLState;

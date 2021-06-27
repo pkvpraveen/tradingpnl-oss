@@ -28,18 +28,13 @@ export function Fno(props: Props) {
             Footer: ' ',
           },
           {
-            Header: 'Scrip Code',
-            accessor: 'scripCode',
-            Footer: ' ',
-          },
-          {
             Header: 'Call/Put',
             accessor: 'callPut',
             Footer: ' ',
           },
           {
-            Header: 'Expiry Date',
-            accessor: 'expiryDate',
+            Header: 'Buy Date',
+            accessor: 'buyDate',
             sortType: (a, b) => {
               const a1 = moment(a.original.expiryDate, 'DD-MM-YYYY');
               const b1 = moment(b.original.expiryDate, 'DD-MM-YYYY');
@@ -50,8 +45,15 @@ export function Fno(props: Props) {
             Footer: ' ',
           },
           {
-            Header: 'Strike Rate',
-            accessor: 'strikeRate',
+            Header: 'Sell Date',
+            accessor: 'sellDate',
+            sortType: (a, b) => {
+              const a1 = moment(a.original.expiryDate, 'DD-MM-YYYY');
+              const b1 = moment(b.original.expiryDate, 'DD-MM-YYYY');
+              if (a1.isBefore(b1)) return 1;
+              else if (b1.isBefore(a1)) return -1;
+              else return 0;
+            },
             Footer: ' ',
           },
           {
@@ -85,48 +87,25 @@ export function Fno(props: Props) {
             Footer: ' ',
           },
           {
-            Header: 'Turnover',
-            accessor: 'turnover',
+            Header: 'P&L',
+            accessor: 'pnl',
             Footer: info => {
               // Only calculate total visits if rows change
               const total = React.useMemo(
                 () =>
                   info.rows
-                    .reduce(
-                      (sum, row) => parseFloat(row.values.turnover) + sum,
-                      0,
-                    )
+                    .reduce((sum, row) => parseFloat(row.values.pnl) + sum, 0)
                     .toFixed(2),
                 [info.rows],
               );
+              const charges = fnoData.charges;
+              const netPnl = fnoData.netPnL;
 
-              return <>Total turnover: {total}</>;
-            },
-          },
-          {
-            Header: 'Profit',
-            accessor: 'profit',
-            sortType: (a, b) => {
-              var a1 = parseFloat(a.original.profit);
-              var b1 = parseFloat(b.original.profit);
-              if (a1 < b1) return 1;
-              else if (b1 < a1) return -1;
-              else return 0;
-            },
-            Footer: info => {
-              // Only calculate total visits if rows change
-              const total = React.useMemo(
-                () =>
-                  info.rows
-                    .reduce(
-                      (sum, row) => parseFloat(row.values.profit) + sum,
-                      0,
-                    )
-                    .toFixed(2),
-                [info.rows],
+              return (
+                <>
+                  Total PnL: {total} | Charges: {charges} | Net PnL: {netPnl}
+                </>
               );
-
-              return <>Total profit: {total}</>;
             },
           },
         ],
@@ -134,35 +113,38 @@ export function Fno(props: Props) {
     ],
     [],
   );
-  const data = fnoData.slice(1).map(row => {
-    const profit = parseFloat(row[10]) - parseFloat(row[7]);
+  const data = fnoData.trades.map(row => {
     return {
       [columns[0].columns[0].accessor]: row[0],
-      [columns[0].columns[1].accessor]: row[1],
-      [columns[0].columns[2].accessor]: row[2],
-      [columns[0].columns[3].accessor]: row[3],
-      [columns[0].columns[4].accessor]: row[4],
-      [columns[0].columns[5].accessor]: row[5],
-      [columns[0].columns[6].accessor]: row[6],
-      [columns[0].columns[7].accessor]: row[7],
-      [columns[0].columns[8].accessor]: row[8],
-      [columns[0].columns[9].accessor]: row[9],
-      [columns[0].columns[10].accessor]: row[10],
-      [columns[0].columns[11].accessor]: row[11],
-      [columns[0].columns[12].accessor]: profit.toFixed(2),
+      [columns[0].columns[1].accessor]: row[4],
+      [columns[0].columns[2].accessor]: row[5],
+      [columns[0].columns[3].accessor]: row[9],
+      [columns[0].columns[4].accessor]: row[6],
+      [columns[0].columns[5].accessor]: row[7],
+      [columns[0].columns[6].accessor]: row[8],
+      [columns[0].columns[7].accessor]: row[10],
+      [columns[0].columns[8].accessor]: row[11],
+      [columns[0].columns[9].accessor]: row[12],
+      [columns[0].columns[10].accessor]: row[14],
     };
   });
   const graphData: any = {};
-  const sortedByDate = fnoData.slice(1).sort((a, b) => {
-    var a1 = moment(a[3], 'DD-MM-YYYY');
-    var b1 = moment(b[3], 'DD-MM-YYYY');
-    if (a1.isBefore(b1)) return -1;
-    else if (b1.isBefore(a1)) return 1;
-    else return 0;
-  });
+  const sortedByDate = fnoData.trades;
+  //   .sort((a, b) => {
+  //   var a1 = moment(a[5], 'DD-MM-YYYY');
+  //   var b1 = moment(b[5], 'DD-MM-YYYY');
+  //   if (a1.isBefore(b1)) return -1;
+  //   else if (b1.isBefore(a1)) return 1;
+  //   else return 0;
+  // });
   sortedByDate.forEach(row => {
-    const profit = parseFloat(row[10]) - parseFloat(row[7]);
-    const date = moment(row[3], 'DD-MM-YYYY').format('DD MMM YYYY');
+    const profit = parseFloat(row[14]);
+    const buyDate = moment(row[5], 'DD-MM-YYYY');
+    const sellDate = moment(row[9], 'DD-MM-YYYY');
+    console.log({buyDate, sellDate});
+    const date = (buyDate.isAfter(sellDate) ? buyDate : sellDate).format(
+      'DD MMM YYYY',
+    );
     if (!graphData[date]) {
       graphData[date] = profit;
     } else {

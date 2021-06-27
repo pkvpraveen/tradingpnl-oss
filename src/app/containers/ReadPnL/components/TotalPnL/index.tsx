@@ -6,15 +6,12 @@
 import * as React from 'react';
 import styled, { useTheme } from 'styled-components/macro';
 import { BarChart } from '../../../../components/BarChart';
+import { useSelector } from 'react-redux';
+import { selectDeliveryData, selectFnOData } from '../../selectors';
 
-interface Props {
-  delivery: number;
-  fno: number;
-  intraday: number;
-}
-
-export function TotalPnL(props: Props) {
-  const { delivery, fno, intraday } = props;
+export function TotalPnL() {
+  const deliveryData = useSelector(selectDeliveryData);
+  const fnoData = useSelector(selectFnOData);
   const theme = useTheme();
   const options = {
     scales: {
@@ -45,20 +42,38 @@ export function TotalPnL(props: Props) {
     <Div>
       <BarChart
         data={{
-          labels: ['Delivery', 'FnO', 'Intraday'],
+          labels: ['Delivery', 'FnO'],
           datasets: [
             {
-              label: 'Profit',
-              data: [delivery, fno, intraday],
+              label: 'Gross P&L',
+              data: [deliveryData?.grossPnL, fnoData?.grossPnL],
               backgroundColor: [
-                getColor(delivery),
-                getColor(fno),
-                getColor(intraday),
+                getColor(deliveryData?.netPnL),
+                getColor(fnoData?.netPnL),
               ],
               borderColor: [
-                getColor(delivery),
-                getColor(fno),
-                getColor(intraday),
+                getColor(deliveryData?.netPnL),
+                getColor(fnoData?.netPnL),
+              ],
+              borderWidth: 1,
+            },
+            {
+              label: 'Charges',
+              data: [deliveryData?.charges, fnoData?.charges],
+              backgroundColor: ['#FFD046', '#FFD046'],
+              borderColor: ['#FFD046', '#FFD046'],
+              borderWidth: 1,
+            },
+            {
+              label: 'Net P&L',
+              data: [deliveryData?.netPnL, fnoData?.netPnL],
+              backgroundColor: [
+                getColor(deliveryData?.netPnL),
+                getColor(fnoData?.netPnL),
+              ],
+              borderColor: [
+                getColor(deliveryData?.netPnL),
+                getColor(fnoData?.netPnL),
               ],
               borderWidth: 1,
             },

@@ -13,7 +13,6 @@ import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { Title } from '../HomePage/components/Title';
 import { Fno } from './components/Fno';
 import { Input } from './components/Input';
-import { Intraday } from './components/Intraday';
 import { readPnLSaga } from './saga';
 import {
   selectDeliveryData,
@@ -33,73 +32,55 @@ export const ReadPnL = memo((props: Props) => {
 
   const dispatch = useDispatch();
 
-  function getFile(event) {
+  function getEQFile(event) {
     readXlsxFile(event.target.files[0]).then(rows => {
       dispatch(readPnLActions.loadEQData(rows));
     });
   }
 
-  function calculateTotalDeliveryProfit(deliveryData) {
-    let totalProfit = 0;
-    // deliveryData.slice(1).forEach((row: Array<string>) => {
-    //   const sellQty = parseInt(row[5]);
-    //   const sellAvg = parseFloat(row[6]);
-    //   const buyAvg = parseFloat(row[3]);
-    //
-    //   const realizedProfit = sellQty * (sellAvg - buyAvg);
-    //   totalProfit += realizedProfit;
-    // });
-    return totalProfit.toFixed(2);
-  }
-
-  function calculateTotalIntradayProfit(deliveryData) {
-    let totalProfit = 0;
-    deliveryData.slice(1).forEach((row: Array<string>) => {
-      const profit = parseFloat(row[8]) - parseFloat(row[5]);
-      totalProfit += profit;
+  function getFnOFile(event) {
+    readXlsxFile(event.target.files[0]).then(rows => {
+      dispatch(readPnLActions.loadFnOData(rows));
     });
-    return totalProfit.toFixed(2);
-  }
-
-  function calculateTotalFnOProfit(deliveryData) {
-    let totalProfit = 0;
-    deliveryData.slice(1).forEach((row: Array<string>) => {
-      const profit = parseFloat(row[10]) - parseFloat(row[7]);
-      totalProfit += profit;
-    });
-    return totalProfit.toFixed(2);
   }
 
   const intradayData = useSelector(selectIntradayData);
   const fnoData = useSelector(selectFnOData);
   const deliveryData = useSelector(selectDeliveryData);
-  const totalProfitDelivery = calculateTotalDeliveryProfit(deliveryData);
-  const totalProfitFnO = calculateTotalFnOProfit(fnoData);
-  const toalProfitIntraday = calculateTotalIntradayProfit(intradayData);
 
   return (
     <>
-      <FormGroup onSubmit={() => {}}>
-        <FormLabel>Select file</FormLabel>
-        <InputWrapper>
-          <Input type="file" placeholder="upload PnL" onChange={getFile} />
-        </InputWrapper>
-      </FormGroup>
+      <InputContainer>
+        <FormGroup onSubmit={() => {}}>
+          <FormLabel>Upload Equity P&L Excel file</FormLabel>
+          <InputWrapper>
+            <Input
+              type="file"
+              placeholder="upload Equity PnL"
+              onChange={getEQFile}
+            />
+          </InputWrapper>
+        </FormGroup>
+        <FormGroup onSubmit={() => {}}>
+          <FormLabel>Upload F&O P&l Excel file</FormLabel>
+          <InputWrapper>
+            <Input
+              type="file"
+              placeholder="upload F&O PnL"
+              onChange={getFnOFile}
+            />
+          </InputWrapper>
+        </FormGroup>
+      </InputContainer>
       {((deliveryData && deliveryData?.trades.length > 0) ||
-        fnoData.length > 0 ||
+        (fnoData && fnoData.trades.length > 0) ||
         intradayData.length > 0) && (
         <>
           <Title as="h2">Summary</Title>
           <h3 style={{ color: theme.text }}>{`Total Profit ₹${(
-            parseFloat(totalProfitDelivery) +
-            parseFloat(totalProfitFnO) +
-            parseFloat(toalProfitIntraday)
+            (deliveryData?.netPnL || 0) + (fnoData?.netPnL || 0)
           ).toFixed(2)}`}</h3>
-          <TotalPnL
-            delivery={parseFloat(totalProfitDelivery)}
-            fno={parseFloat(totalProfitFnO)}
-            intraday={parseFloat(toalProfitIntraday)}
-          />
+          <TotalPnL />
         </>
       )}
       {deliveryData && deliveryData.trades.length > 0 && (
@@ -111,22 +92,13 @@ export const ReadPnL = memo((props: Props) => {
           <Delivery deliveryData={deliveryData} />
         </>
       )}
-      {fnoData.length > 0 && (
+      {fnoData && fnoData.trades.length > 0 && (
         <>
           <Title as="h2">FnO</Title>
           <h3
             style={{ color: theme.text }}
-          >{`Total Profit ₹${totalProfitFnO}`}</h3>
+          >{`Total Profit ₹${fnoData.netPnL}`}</h3>
           <Fno fnoData={fnoData} />
-        </>
-      )}
-      {intradayData.length > 0 && (
-        <>
-          <Title as="h2">Intraday</Title>
-          <h3
-            style={{ color: theme.text }}
-          >{`Total Profit ₹${toalProfitIntraday}`}</h3>
-          <Intraday intradayData={intradayData} />
         </>
       )}
     </>
@@ -134,6 +106,7 @@ export const ReadPnL = memo((props: Props) => {
 });
 
 const FormGroup = styled.form`
+  width: 50%;
   display: flex;
   flex-direction: column;
   margin-bottom: 1rem;
@@ -151,4 +124,7 @@ const InputWrapper = styled.div`
     width: ${100 / 3}%;
     margin-right: 0.5rem;
   }
+`;
+const InputContainer = styled.div`
+  display: flex;
 `;

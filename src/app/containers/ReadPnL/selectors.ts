@@ -31,25 +31,7 @@ export const selectIntradayData = createSelector(
 );
 
 export const selectFnOData = createSelector([selectDomain], readPnLState => {
-  let count = 0;
-  let fnoStarted = false;
-  let fnoEnded = false;
-  const fno: Array<Array<string>> = [];
-  readPnLState?.fnoData?.forEach((row: Array<string>) => {
-    if (row[1] === 'Scrip Name') {
-      count++;
-    }
-    if (count > 1) {
-      fnoStarted = true;
-    }
-    if (fnoStarted && row[1] === null) {
-      fnoEnded = true;
-    }
-    if (fnoStarted && !fnoEnded) {
-      fno.push(row.slice(1));
-    }
-  });
-  return fno;
+  return readPnLState.fnoData;
 });
 
 export const selectDeliveryData = createSelector(

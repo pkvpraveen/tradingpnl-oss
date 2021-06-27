@@ -3,19 +3,17 @@ import { createSlice } from 'utils/@reduxjs/toolkit';
 import { ContainerState } from './types';
 
 // The initial state of the ReadPnL container
-export const initialState: ContainerState = {
-  fnoData: [],
-};
+export const initialState: ContainerState = {};
 
 const readPnLSlice = createSlice({
   name: 'readPnL',
   initialState,
   reducers: {
     loadEQData(state, action: PayloadAction<any>) {
-      state.eqData = populateEQData(action.payload);
+      state.eqData = transformData(action.payload);
     },
     loadFnOData(state, action: PayloadAction<any>) {
-      state.fnoData = action.payload;
+      state.fnoData = transformData(action.payload);
     },
   },
 });
@@ -26,26 +24,23 @@ export const {
   name: sliceKey,
 } = readPnLSlice;
 
-function populateEQData(rows) {
-  const grossPnL = rows[8][1];
-  const netPnL = rows[9][1];
-  const charges = rows[20][1];
+function transformData(rows) {
+  const grossPnL = parseFloat(rows[8][1]);
+  const netPnL = parseFloat(rows[9][1]);
+  const charges = parseFloat(rows[20][1]);
   const trades: Array<Array<string>> = [];
   let started = false;
   let ended = false;
   rows.forEach((row: Array<string>) => {
-    console.log(row[0]);
     if (row[0]?.trim() === 'Scrip Name') {
-      console.log('started');
       started = true;
     }
     if (started && row[1] === null) {
-      console.log('ended');
       ended = true;
     }
     if (started && !ended) {
       trades.push(row);
     }
   });
-  return { grossPnL, netPnL, charges, trades };
+  return { grossPnL, netPnL, charges, trades: trades.slice(1) };
 }

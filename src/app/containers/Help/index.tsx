@@ -4,10 +4,9 @@ import { NavBar } from '../NavBar';
 import { PageWrapper } from '../../components/PageWrapper';
 import styled from 'styled-components/macro';
 import { Title } from '../HomePage/components/Title';
-import Login from './assets/login.jpg';
-import MenuLink from './assets/link.jpg';
-import View from './assets/vlew.jpg';
-import Download from './assets/download.jpg';
+import Login from './assets/login.png';
+import MenuLink from './assets/keystone.jpg';
+import Download from './assets/export.png';
 import Upload from './assets/upload.jpg';
 import Success from './assets/success.jpg';
 import { Link as RouterLink } from 'react-router-dom';
@@ -27,14 +26,12 @@ export const Help = () => {
         <Title>How to use this application</Title>
         <Content>Login to console</Content>
         <Image src={Login} alt={'login to bo'} />
-        <Content>Find taxable turnover in menu</Content>
-        <Image src={MenuLink} alt={'Find taxable turnover in menu'} />
-        <Content>Click on View</Content>
-        <Image src={View} alt={'Click on view'} />
-        <Content>Download the turnover report in excel format</Content>
+        <Content>Find Profit and Loss statement in menu</Content>
+        <Image src={MenuLink} alt={'Find profit and loss statemnt in menu'} />
+        <Content>Download both Equity and F&O reports in excel format</Content>
         <Image
           src={Download}
-          alt={'Download the turnover report in excel format'}
+          alt={'Download both Equity and F&O reports in excel format'}
         />
         <Content>Upload to this application</Content>
         <Image src={Upload} alt={'Upload to this application'} />
