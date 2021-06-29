@@ -6,16 +6,15 @@
 import * as React from 'react';
 import moment from 'moment';
 import { Table } from 'app/components/Table';
-import { BarChart } from 'app/components/BarChart';
-import { useTheme } from 'styled-components';
 import { ExpiryWisePnLGraph } from './ExpiryWisePnLGraph';
+import { DateWisePnLGraph } from './DateWisePnLGraph';
+import styled from 'styled-components/macro';
 
 interface Props {
   fnoData: any;
 }
 
 export function Fno(props: Props) {
-  const theme = useTheme();
   const { fnoData } = props;
   const columns = React.useMemo(
     () => [
@@ -136,75 +135,17 @@ export function Fno(props: Props) {
       [columns[0].columns[10].accessor]: row[14],
     };
   });
-  const graphData: any = {};
-  const sortedByDate = fnoData.trades.slice().sort((a, b) => {
-    const a1 = moment(a[5], 'DD-MM-YYYY');
-    const b1 = moment(b[5], 'DD-MM-YYYY');
-    if (a1.isBefore(b1)) return -1;
-    else if (b1.isBefore(a1)) return 1;
-    else return 0;
-  });
-  sortedByDate.forEach(row => {
-    const profit = parseFloat(row[14]);
-    const buyDate = moment(row[5], 'DD-MM-YYYY');
-    const sellDate = moment(row[9], 'DD-MM-YYYY');
-    const date = (buyDate.isAfter(sellDate) ? buyDate : sellDate).format(
-      'DD MMM YYYY',
-    );
-    if (!graphData[date]) {
-      graphData[date] = profit;
-    } else {
-      graphData[date] += profit;
-    }
-  });
-  const options = {
-    showAllTooltips: true,
 
-    tooltipEvents: [],
-    scales: {
-      yAxes: [
-        {
-          ticks: {
-            beginAtZero: true,
-          },
-          gridLines: {
-            color: theme.border,
-            zeroLineColor: theme.border,
-          },
-        },
-      ],
-      xAxes: [
-        {
-          gridLines: {
-            color: theme.border,
-          },
-        },
-      ],
-    },
-  };
   return (
-    <div>
-      <BarChart
-        data={{
-          labels: Object.keys(graphData),
-          datasets: [
-            {
-              label: 'Date Wise P&L',
-              data: Object.values(graphData).map((v: any) => v.toFixed(2)),
-              backgroundColor: Object.values(graphData).map((v: any) =>
-                v > 0 ? 'rgba(11, 156, 49, 0.7)' : 'rgba(255, 0, 0, 0.7)',
-              ),
-              borderColor: Object.values(graphData).map((v: any) =>
-                v > 0 ? 'rgba(11, 156, 49, 0.7)' : 'rgba(255, 0, 0, 0.7)',
-              ),
-              borderWidth: 1,
-            },
-          ],
-        }}
-        options={options}
-      />
+    <Div>
+      <DateWisePnLGraph />
       <ExpiryWisePnLGraph />
       <Table columns={columns} data={data} />
-    </div>
+    </Div>
   );
 }
+
+const Div = styled.div`
+  min-width: 1500px;
+  margin: 0 auto;
+`;
