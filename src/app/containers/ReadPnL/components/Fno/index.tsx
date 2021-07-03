@@ -9,6 +9,8 @@ import { Table } from 'app/components/Table';
 import { ExpiryWisePnLGraph } from './ExpiryWisePnLGraph';
 import { DateWisePnLGraph } from './DateWisePnLGraph';
 import styled from 'styled-components/macro';
+import { CalendarPnL } from './CalendarPnL';
+import { Trade } from '../../types';
 
 interface Props {
   fnoData: any;
@@ -120,19 +122,19 @@ export function Fno(props: Props) {
     ],
     [fnoData.charges, fnoData.netPnL],
   );
-  const data = fnoData.trades.map(row => {
+  const data = fnoData.trades.map((row: Trade) => {
     return {
-      [columns[0].columns[0].accessor]: row[0],
-      [columns[0].columns[1].accessor]: row[4],
-      [columns[0].columns[2].accessor]: row[5],
-      [columns[0].columns[3].accessor]: row[9],
-      [columns[0].columns[4].accessor]: row[6],
-      [columns[0].columns[5].accessor]: row[7],
-      [columns[0].columns[6].accessor]: row[8],
-      [columns[0].columns[7].accessor]: row[10],
-      [columns[0].columns[8].accessor]: row[11],
-      [columns[0].columns[9].accessor]: row[12],
-      [columns[0].columns[10].accessor]: row[14],
+      [columns[0].columns[0].accessor]: row.scripName,
+      [columns[0].columns[1].accessor]: row.scriptOpt,
+      [columns[0].columns[2].accessor]: row.buyDate,
+      [columns[0].columns[3].accessor]: row.sellDate,
+      [columns[0].columns[4].accessor]: row.buyQuantity,
+      [columns[0].columns[5].accessor]: row.buyRate,
+      [columns[0].columns[6].accessor]: row.buyAmount,
+      [columns[0].columns[7].accessor]: row.sellQuantity,
+      [columns[0].columns[8].accessor]: row.sellRate,
+      [columns[0].columns[9].accessor]: row.sellAmount,
+      [columns[0].columns[10].accessor]: row.profit,
     };
   });
 

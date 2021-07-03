@@ -3,17 +3,18 @@ import { BarChart } from '../../../../components/BarChart';
 import { useSelector } from 'react-redux';
 import { selectDeliveryData } from '../../selectors';
 import { useTheme } from 'styled-components/macro';
+import { Trade } from '../../types';
 
 export function ScriptWisePnLGraph() {
   const deliveryData = useSelector(selectDeliveryData);
   const theme = useTheme();
   const graphData: any = {};
   if (deliveryData) {
-    deliveryData.trades.forEach(row => {
-      const scrip = row[0];
+    deliveryData.trades.forEach((row: Trade) => {
+      const scrip = row.scripName;
       graphData[scrip] = graphData[scrip]
-        ? graphData[scrip] + parseFloat(row[14])
-        : parseFloat(row[14]);
+        ? graphData[scrip] + row.profit
+        : row.profit;
     });
   }
   const options = {

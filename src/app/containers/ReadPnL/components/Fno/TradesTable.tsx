@@ -1,25 +1,16 @@
-/**
- *
- * Delivery
- *
- */
-import * as React from 'react';
-import styled from 'styled-components/macro';
+import React from 'react';
 import { Table } from '../../../../components/Table';
-import { ScriptWisePnLGraph } from './ScriptWisePnLGraph';
 import { Trade } from '../../types';
-
 interface Props {
-  deliveryData: any;
+  trades: Array<Trade>;
 }
-
-export function Delivery(props: Props) {
-  const { deliveryData } = props;
+export const TradesTable = (props: Props) => {
+  const { trades } = props;
   const columns = React.useMemo(
     () => [
       {
-        Header: 'Delivery',
-        Footer: 'Delivery',
+        Header: 'Trades',
+        Footer: 'Trades',
         columns: [
           {
             Header: 'Scrip Name',
@@ -83,23 +74,16 @@ export function Delivery(props: Props) {
                     .toFixed(2),
                 [info.rows],
               );
-              const charges = deliveryData.charges;
-              const netProfit = deliveryData.netPnL;
 
-              return (
-                <>
-                  Total Realized Profit: {total}, Charges: {charges},Net P&L :{' '}
-                  {netProfit}{' '}
-                </>
-              );
+              return <>Total: {total}</>;
             },
           },
         ],
       },
     ],
-    [deliveryData.charges, deliveryData.netPnL],
+    [trades],
   );
-  const data = deliveryData.trades.map((row: Trade) => {
+  const data = trades.map((row: Trade) => {
     return {
       [columns[0].columns[0].accessor]: row.scripName,
       [columns[0].columns[1].accessor]: row.symbol,
@@ -113,12 +97,5 @@ export function Delivery(props: Props) {
     };
   });
 
-  return (
-    <Div>
-      <ScriptWisePnLGraph />
-      <Table columns={columns} data={data} />
-    </Div>
-  );
-}
-
-const Div = styled.div``;
+  return <Table columns={columns} data={data} />;
+};

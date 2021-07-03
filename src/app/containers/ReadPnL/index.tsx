@@ -14,14 +14,11 @@ import { Title } from '../HomePage/components/Title';
 import { Fno } from './components/Fno';
 import { Input } from './components/Input';
 import { readPnLSaga } from './saga';
-import {
-  selectDeliveryData,
-  selectFnOData,
-  selectIntradayData,
-} from './selectors';
+import { selectDeliveryData, selectFnOData } from './selectors';
 import { readPnLActions, reducer, sliceKey } from './slice';
 import { Delivery } from './components/Delivery';
 import { TotalPnL } from './components/TotalPnL';
+import { CalendarPnL } from './components/Fno/CalendarPnL';
 
 interface Props {}
 
@@ -44,7 +41,6 @@ export const ReadPnL = memo((props: Props) => {
     });
   }
 
-  const intradayData = useSelector(selectIntradayData);
   const fnoData = useSelector(selectFnOData);
   const deliveryData = useSelector(selectDeliveryData);
 
@@ -73,15 +69,17 @@ export const ReadPnL = memo((props: Props) => {
         </FormGroup>
       </InputContainer>
       {((deliveryData && deliveryData?.trades.length > 0) ||
-        (fnoData && fnoData.trades.length > 0) ||
-        intradayData.length > 0) && (
-        <>
-          <Title as="h2">Summary</Title>
-          <h3 style={{ color: theme.text }}>{`Total Profit ₹${(
-            (deliveryData?.netPnL || 0) + (fnoData?.netPnL || 0)
-          ).toFixed(2)}`}</h3>
-          <TotalPnL />
-        </>
+        (fnoData && fnoData.trades.length > 0)) && (
+        <Flex>
+          <Summary>
+            <Title as="h2">Summary</Title>
+            <h3 style={{ color: theme.text }}>{`Total Profit ₹${(
+              (deliveryData?.netPnL || 0) + (fnoData?.netPnL || 0)
+            ).toFixed(2)}`}</h3>
+            <TotalPnL />
+          </Summary>
+          <CalendarPnL />
+        </Flex>
       )}
       {fnoData && fnoData.trades.length > 0 && (
         <>
@@ -127,4 +125,13 @@ const InputWrapper = styled.div`
 `;
 const InputContainer = styled.div`
   display: flex;
+  flex-direction: column;
+`;
+const Flex = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const Summary = styled.div`
+  width: 50%;
 `;

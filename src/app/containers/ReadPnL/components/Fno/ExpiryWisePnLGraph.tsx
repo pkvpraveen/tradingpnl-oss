@@ -11,19 +11,19 @@ export function ExpiryWisePnLGraph() {
   const graphData: any = {};
   if (fnoData) {
     const sortedByDate = fnoData.trades.slice().sort((a, b) => {
-      const a1 = moment(a[5], 'DD-MM-YYYY');
-      const b1 = moment(b[5], 'DD-MM-YYYY');
+      const a1 = moment(a.buyDate, 'DD-MM-YYYY');
+      const b1 = moment(b.buyDate, 'DD-MM-YYYY');
       if (a1.isBefore(b1)) return -1;
       else if (b1.isBefore(a1)) return 1;
       else return 0;
     });
     const regex = /([A-Z]+[0-9][0-9][A-Z][A-Z][A-Z])+/g;
     sortedByDate.forEach(row => {
-      const match = row[1].match(regex) || [''];
+      const match = row.scripCode.match(regex) || [''];
       const scrip = match[0];
       graphData[scrip] = graphData[scrip]
-        ? graphData[scrip] + parseFloat(row[14])
-        : parseFloat(row[14]);
+        ? graphData[scrip] + row.profit
+        : row.profit;
     });
   }
   const options = {

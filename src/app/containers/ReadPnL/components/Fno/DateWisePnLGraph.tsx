@@ -4,13 +4,14 @@ import moment from 'moment';
 import { useTheme } from 'styled-components/macro';
 import { useSelector } from 'react-redux';
 import { selectFnOData } from '../../selectors';
+import { Trade } from '../../types';
 export function DateWisePnLGraph() {
   const theme = useTheme();
   const fnoData = useSelector(selectFnOData);
 
-  function getDate(row) {
-    const buyDate = moment(row[5], 'DD-MM-YYYY');
-    const sellDate = moment(row[9], 'DD-MM-YYYY');
+  function getDate(row: Trade) {
+    const buyDate = moment(row.buyDate, 'DD-MM-YYYY');
+    const sellDate = moment(row.sellDate, 'DD-MM-YYYY');
     return buyDate.isAfter(sellDate) ? buyDate : sellDate;
   }
   const graphData: any = {};
@@ -22,7 +23,7 @@ export function DateWisePnLGraph() {
     else return 0;
   });
   sortedByDate?.forEach(row => {
-    const profit = parseFloat(row[14]);
+    const profit = row.profit;
     const date = getDate(row).format('DD MMM YYYY');
     if (!graphData[date]) {
       graphData[date] = profit;
