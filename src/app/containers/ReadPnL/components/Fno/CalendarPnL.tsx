@@ -76,6 +76,7 @@ export const CalendarPnL = () => {
       <Calendar
         localizer={localizer}
         events={events}
+        views={['month', 'agenda']}
         startAccessor="start"
         endAccessor="end"
         max={moment()}

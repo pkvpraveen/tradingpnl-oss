@@ -33,4 +33,7 @@ export const GlobalStyle = createGlobalStyle`
     width: 1.5rem;
     height: 1.5rem;
   }
+  .ui-dialog-content{
+    width: 100%;
+  }
 `;
