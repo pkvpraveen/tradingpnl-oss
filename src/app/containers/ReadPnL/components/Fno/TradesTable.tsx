@@ -81,7 +81,7 @@ export const TradesTable = (props: Props) => {
         ],
       },
     ],
-    [trades],
+    [],
   );
   const data = trades.map((row: Trade) => {
     return {

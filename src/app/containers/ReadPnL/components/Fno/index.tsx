@@ -9,7 +9,6 @@ import { Table } from 'app/components/Table';
 import { ExpiryWisePnLGraph } from './ExpiryWisePnLGraph';
 import { DateWisePnLGraph } from './DateWisePnLGraph';
 import styled from 'styled-components/macro';
-import { CalendarPnL } from './CalendarPnL';
 import { Trade } from '../../types';
 
 interface Props {
