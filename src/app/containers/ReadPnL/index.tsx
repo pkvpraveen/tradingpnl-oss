@@ -19,6 +19,8 @@ import { readPnLActions, reducer, sliceKey } from './slice';
 import { Delivery } from './components/Delivery';
 import { TotalPnL } from './components/TotalPnL';
 import { CalendarPnL } from './components/Fno/CalendarPnL';
+import { Grid } from '@material-ui/core';
+import { DropzoneArea } from 'material-ui-dropzone';
 
 interface Props {}
 
@@ -29,14 +31,14 @@ export const ReadPnL = memo((props: Props) => {
 
   const dispatch = useDispatch();
 
-  function getEQFile(event) {
-    readXlsxFile(event.target.files[0]).then(rows => {
+  function getEQFile(files) {
+    readXlsxFile(files[0]).then(rows => {
       dispatch(readPnLActions.loadEQData(rows));
     });
   }
 
-  function getFnOFile(event) {
-    readXlsxFile(event.target.files[0]).then(rows => {
+  function getFnOFile(files) {
+    readXlsxFile(files[0]).then(rows => {
       dispatch(readPnLActions.loadFnOData(rows));
     });
   }
@@ -46,28 +48,30 @@ export const ReadPnL = memo((props: Props) => {
 
   return (
     <>
-      <InputContainer>
-        <FormGroup onSubmit={() => {}}>
-          <FormLabel>Upload Equity P&L Excel file</FormLabel>
-          <InputWrapper>
-            <Input
-              type="file"
-              placeholder="upload Equity PnL"
-              onChange={getEQFile}
-            />
-          </InputWrapper>
-        </FormGroup>
-        <FormGroup onSubmit={() => {}}>
-          <FormLabel>Upload F&O P&l Excel file</FormLabel>
-          <InputWrapper>
-            <Input
-              type="file"
-              placeholder="upload F&O PnL"
-              onChange={getFnOFile}
-            />
-          </InputWrapper>
-        </FormGroup>
-      </InputContainer>
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={6}>
+          <DropzoneArea
+            onChange={getEQFile}
+            acceptedFiles={[
+              'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            ]}
+            filesLimit={1}
+            useChipsForPreview
+            dropzoneText="Upload Equity P&L excel"
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <DropzoneArea
+            onChange={getFnOFile}
+            filesLimit={1}
+            acceptedFiles={[
+              'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            ]}
+            useChipsForPreview
+            dropzoneText="Upload F&O P&L excel"
+          />
+        </Grid>
+      </Grid>
       {((deliveryData && deliveryData?.trades.length > 0) ||
         (fnoData && fnoData.trades.length > 0)) && (
         <Flex>

@@ -106,6 +106,9 @@ export const CalendarPnL = () => {
 const Div = styled.div`
   margin: 3rem 0;
   width: 50%;
+  .rbc-calendar {
+    background-color: #fff;
+  }
 `;
 const DialogContents = styled.div`
   margin: 0 0;
