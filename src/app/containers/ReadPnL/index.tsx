@@ -4,7 +4,6 @@
  *
  */
 
-import { FormLabel } from 'app/components/FormLabel';
 import React, { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import readXlsxFile from 'read-excel-file';
@@ -12,7 +11,6 @@ import styled, { useTheme } from 'styled-components/macro';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { Title } from '../HomePage/components/Title';
 import { Fno } from './components/Fno';
-import { Input } from './components/Input';
 import { readPnLSaga } from './saga';
 import { selectDeliveryData, selectFnOData } from './selectors';
 import { readPnLActions, reducer, sliceKey } from './slice';
@@ -107,30 +105,6 @@ export const ReadPnL = memo((props: Props) => {
   );
 });
 
-const FormGroup = styled.form`
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1rem;
-
-  ${FormLabel} {
-    margin-bottom: 0.25rem;
-    margin-left: 0.125rem;
-  }
-`;
-const InputWrapper = styled.div`
-  display: flex;
-  align-items: center;
-
-  ${Input} {
-    width: ${100 / 3}%;
-    margin-right: 0.5rem;
-  }
-`;
-const InputContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
 const Flex = styled.div`
   display: flex;
   justify-content: space-between;
