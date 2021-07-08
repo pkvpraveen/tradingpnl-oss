@@ -37,7 +37,7 @@ export const ProfitByDateRange = () => {
   ]);
   const [showFno, setShowFno] = useState(true);
   const [showEq, setShowEq] = useState(true);
-  const [capital, setCapital] = useState(0);
+  const [capital, setCapital] = useState('');
   const startDate = state[0].startDate;
   const endDate = state[0].endDate;
   const fnoData = useSelector(selectFnOData);
@@ -59,7 +59,8 @@ export const ProfitByDateRange = () => {
       sum += trade.profit;
     });
   }
-  const percentage = capital > 0 ? (sum * 100) / capital : 0;
+  const validCapital = parseFloat(capital);
+  const percentage = validCapital > 0 ? (sum * 100) / validCapital : 0;
   return (
     <>
       <Divider />
@@ -82,8 +83,9 @@ export const ProfitByDateRange = () => {
                 label="Capital"
                 variant="outlined"
                 size="small"
+                type={'number'}
                 value={capital}
-                onChange={e => setCapital(parseInt(e.target.value))}
+                onChange={e => setCapital(e.target.value)}
               />
               <FormGroup row>
                 <FormControlLabel
@@ -120,7 +122,7 @@ export const ProfitByDateRange = () => {
                 <Title as="h2" style={{ color: getColor(sum) }}>
                   ₹{sum.toFixed(2)}
                   <br />
-                  {percentage ? percentage.toFixed(2) : ''}%
+                  {capital && <>{percentage ? percentage.toFixed(2) : ''}%</>}
                 </Title>
               )}
             </Box>
