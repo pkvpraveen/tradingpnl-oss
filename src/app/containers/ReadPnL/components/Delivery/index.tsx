@@ -8,6 +8,12 @@ import styled from 'styled-components/macro';
 import { Table } from '../../../../components/Table';
 import { ScriptWisePnLGraph } from './ScriptWisePnLGraph';
 import { Trade } from '../../types';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+} from '@material-ui/core';
+import { ExpandMore } from '@material-ui/icons';
 
 interface Props {
   deliveryData: any;
@@ -116,7 +122,19 @@ export function Delivery(props: Props) {
   return (
     <Div>
       <ScriptWisePnLGraph />
-      <Table columns={columns} data={data} />
+      <Accordion>
+        <AccordionSummary
+          style={{ width: '100%', padding: '0 1rem' }}
+          expandIcon={<ExpandMore />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          P&L Table
+        </AccordionSummary>
+        <AccordionDetails>
+          <Table columns={columns} data={data} />
+        </AccordionDetails>
+      </Accordion>
     </Div>
   );
 }

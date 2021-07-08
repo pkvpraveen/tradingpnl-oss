@@ -1,7 +1,7 @@
 import React from 'react';
 import { BarChart } from '../../../../components/BarChart';
 import moment from 'moment';
-import { useTheme } from 'styled-components/macro';
+import styled, { useTheme } from 'styled-components/macro';
 import { useSelector } from 'react-redux';
 import { selectFnOData } from '../../selectors';
 import { Trade } from '../../types';
@@ -57,24 +57,31 @@ export function DateWisePnLGraph() {
     },
   };
   return (
-    <BarChart
-      data={{
-        labels: Object.keys(graphData),
-        datasets: [
-          {
-            label: 'Date Wise P&L',
-            data: Object.values(graphData).map((v: any) => v.toFixed(2)),
-            backgroundColor: Object.values(graphData).map((v: any) =>
-              v > 0 ? 'rgba(11, 156, 49, 0.7)' : 'rgba(255, 0, 0, 0.7)',
-            ),
-            borderColor: Object.values(graphData).map((v: any) =>
-              v > 0 ? 'rgba(11, 156, 49, 0.7)' : 'rgba(255, 0, 0, 0.7)',
-            ),
-            borderWidth: 1,
-          },
-        ],
-      }}
-      options={options}
-    />
+    <Div>
+      <h3 style={{ color: theme.text }}>FnO Date wise p&l</h3>
+      <BarChart
+        data={{
+          labels: Object.keys(graphData),
+          datasets: [
+            {
+              label: 'Date Wise P&L',
+              data: Object.values(graphData).map((v: any) => v.toFixed(2)),
+              backgroundColor: Object.values(graphData).map((v: any) =>
+                v > 0 ? 'rgba(11, 156, 49, 0.7)' : 'rgba(255, 0, 0, 0.7)',
+              ),
+              borderColor: Object.values(graphData).map((v: any) =>
+                v > 0 ? 'rgba(11, 156, 49, 0.7)' : 'rgba(255, 0, 0, 0.7)',
+              ),
+              borderWidth: 1,
+            },
+          ],
+        }}
+        options={options}
+      />
+    </Div>
   );
 }
+
+const Div = styled.div`
+  padding: 5rem 0;
+`;

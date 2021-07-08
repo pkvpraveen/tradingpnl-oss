@@ -10,6 +10,17 @@ import { ExpiryWisePnLGraph } from './ExpiryWisePnLGraph';
 import { DateWisePnLGraph } from './DateWisePnLGraph';
 import styled from 'styled-components/macro';
 import { Trade } from '../../types';
+import { Title } from '../../../HomePage/components/Title';
+import { useState } from 'react';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  FormControlLabel,
+  Switch,
+  Typography,
+} from '@material-ui/core';
+import { ExpandMore } from '@material-ui/icons';
 
 interface Props {
   fnoData: any;
@@ -17,6 +28,7 @@ interface Props {
 
 export function Fno(props: Props) {
   const { fnoData } = props;
+  const [showTable, setShowTable] = useState(false);
   const columns = React.useMemo(
     () => [
       {
@@ -141,7 +153,19 @@ export function Fno(props: Props) {
     <Div>
       <DateWisePnLGraph />
       <ExpiryWisePnLGraph />
-      <Table columns={columns} data={data} />
+      <Accordion>
+        <AccordionSummary
+          style={{ width: '100%', padding: '0 1rem' }}
+          expandIcon={<ExpandMore />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          P&L Table
+        </AccordionSummary>
+        <AccordionDetails>
+          <Table columns={columns} data={data} />
+        </AccordionDetails>
+      </Accordion>
     </Div>
   );
 }

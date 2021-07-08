@@ -36,7 +36,9 @@ export function TotalPnL() {
     },
   };
   function getColor(v) {
-    return v > 0 ? 'rgba(11, 156, 49, 0.7)' : 'rgba(255, 0, 0, 0.7)';
+    return parseFloat(v) > 0
+      ? 'rgba(11, 156, 49, 0.7)'
+      : 'rgba(255, 0, 0, 0.7)';
   }
   return (
     <Div>
@@ -48,12 +50,12 @@ export function TotalPnL() {
               label: 'Gross P&L',
               data: [deliveryData?.grossPnL, fnoData?.grossPnL],
               backgroundColor: [
-                getColor(deliveryData?.netPnL),
-                getColor(fnoData?.netPnL),
+                getColor(deliveryData?.grossPnL),
+                getColor(fnoData?.grossPnL),
               ],
               borderColor: [
-                getColor(deliveryData?.netPnL),
-                getColor(fnoData?.netPnL),
+                getColor(deliveryData?.grossPnL),
+                getColor(fnoData?.grossPnL),
               ],
               borderWidth: 1,
             },

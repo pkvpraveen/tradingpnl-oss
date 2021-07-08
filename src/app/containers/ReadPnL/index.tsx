@@ -17,11 +17,13 @@ import { readPnLActions, reducer, sliceKey } from './slice';
 import { Delivery } from './components/Delivery';
 import { TotalPnL } from './components/TotalPnL';
 import { CalendarPnL } from './components/Fno/CalendarPnL';
-import { Grid } from '@material-ui/core';
+import { Box, Grid } from '@material-ui/core';
 import { DropzoneArea } from 'material-ui-dropzone';
 
 interface Props {}
-
+function getColor(v) {
+  return parseFloat(v) > 0 ? 'rgba(11, 156, 49, 0.7)' : 'rgba(255, 0, 0, 0.7)';
+}
 export const ReadPnL = memo((props: Props) => {
   useInjectReducer({ key: sliceKey, reducer: reducer });
   useInjectSaga({ key: sliceKey, saga: readPnLSaga });
@@ -75,9 +77,58 @@ export const ReadPnL = memo((props: Props) => {
         <Flex>
           <Summary>
             <Title as="h2">Summary</Title>
-            <h3 style={{ color: theme.text }}>{`Total Profit ₹${(
-              (deliveryData?.netPnL || 0) + (fnoData?.netPnL || 0)
-            ).toFixed(2)}`}</h3>
+            <Box display="flex">
+              <h3
+                style={{
+                  color: theme.textSecondary,
+                }}
+              >
+                Total Profit
+              </h3>
+              <h3
+                style={{
+                  color: getColor(
+                    (deliveryData?.netPnL || 0) + (fnoData?.netPnL || 0),
+                  ),
+                  marginLeft: 10,
+                }}
+              >{`₹${(
+                (deliveryData?.netPnL || 0) + (fnoData?.netPnL || 0)
+              ).toFixed(2)}`}</h3>
+              {fnoData && (
+                <>
+                  <h3
+                    style={{
+                      color: theme.textSecondary,
+                      marginLeft: 20,
+                    }}
+                  >
+                    FnO
+                  </h3>
+                  <h3
+                    style={{ color: getColor(fnoData.netPnL), marginLeft: 10 }}
+                  >{` ₹${fnoData.netPnL}`}</h3>
+                </>
+              )}
+              {deliveryData && (
+                <>
+                  <h3
+                    style={{
+                      color: theme.textSecondary,
+                      marginLeft: 20,
+                    }}
+                  >
+                    Equity
+                  </h3>
+                  <h3
+                    style={{
+                      color: getColor(deliveryData.netPnL),
+                      marginLeft: 10,
+                    }}
+                  >{`₹${deliveryData.netPnL}`}</h3>
+                </>
+              )}
+            </Box>
             <TotalPnL />
           </Summary>
           <CalendarPnL />
@@ -85,9 +136,8 @@ export const ReadPnL = memo((props: Props) => {
       )}
       {fnoData && fnoData.trades.length > 0 && (
         <>
-          <Title as="h2">FnO</Title>
           <h3
-            style={{ color: theme.text }}
+            style={{ color: getColor(fnoData.netPnL) }}
           >{`Total Profit ₹${fnoData.netPnL}`}</h3>
           <Fno fnoData={fnoData} />
         </>

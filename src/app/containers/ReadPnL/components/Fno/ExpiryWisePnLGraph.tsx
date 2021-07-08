@@ -53,6 +53,7 @@ export function ExpiryWisePnLGraph() {
   };
   return (
     <Div>
+      <h3 style={{ color: theme.text }}>FnO Expiry wise p&l</h3>
       <BarChart
         data={{
           labels: Object.keys(graphData),
