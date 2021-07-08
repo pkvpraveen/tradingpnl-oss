@@ -10,15 +10,10 @@ import { ExpiryWisePnLGraph } from './ExpiryWisePnLGraph';
 import { DateWisePnLGraph } from './DateWisePnLGraph';
 import styled from 'styled-components/macro';
 import { Trade } from '../../types';
-import { Title } from '../../../HomePage/components/Title';
-import { useState } from 'react';
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  FormControlLabel,
-  Switch,
-  Typography,
 } from '@material-ui/core';
 import { ExpandMore } from '@material-ui/icons';
 
@@ -28,7 +23,6 @@ interface Props {
 
 export function Fno(props: Props) {
   const { fnoData } = props;
-  const [showTable, setShowTable] = useState(false);
   const columns = React.useMemo(
     () => [
       {
