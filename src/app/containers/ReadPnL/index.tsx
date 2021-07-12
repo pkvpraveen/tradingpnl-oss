@@ -75,67 +75,72 @@ export const ReadPnL = memo((props: Props) => {
       </Grid>
       {((deliveryData && deliveryData?.trades.length > 0) ||
         (fnoData && fnoData.trades.length > 0)) && (
-        <Flex>
-          <Summary>
-            <Title as="h2">Summary</Title>
-            <Box display="flex">
-              <h3
-                style={{
-                  color: theme.textSecondary,
-                }}
-              >
-                Total Profit
-              </h3>
-              <h3
-                style={{
-                  color: getColor(
-                    (deliveryData?.netPnL || 0) + (fnoData?.netPnL || 0),
-                  ),
-                  marginLeft: 10,
-                }}
-              >{`₹${(
-                (deliveryData?.netPnL || 0) + (fnoData?.netPnL || 0)
-              ).toFixed(2)}`}</h3>
-              {fnoData && (
-                <>
-                  <h3
-                    style={{
-                      color: theme.textSecondary,
-                      marginLeft: 20,
-                    }}
-                  >
-                    FnO
-                  </h3>
-                  <h3
-                    style={{ color: getColor(fnoData.netPnL), marginLeft: 10 }}
-                  >{` ₹${fnoData.netPnL}`}</h3>
-                </>
-              )}
-              {deliveryData && (
-                <>
-                  <h3
-                    style={{
-                      color: theme.textSecondary,
-                      marginLeft: 20,
-                    }}
-                  >
-                    Equity
-                  </h3>
-                  <h3
-                    style={{
-                      color: getColor(deliveryData.netPnL),
-                      marginLeft: 10,
-                    }}
-                  >{`₹${deliveryData.netPnL}`}</h3>
-                </>
-              )}
-            </Box>
-            <TotalPnL />
-          </Summary>
-          <CalendarPnL />
-        </Flex>
+        <>
+          <Flex>
+            <Summary>
+              <Title as="h2">Summary</Title>
+              <Box display="flex">
+                <h3
+                  style={{
+                    color: theme.textSecondary,
+                  }}
+                >
+                  Total Profit
+                </h3>
+                <h3
+                  style={{
+                    color: getColor(
+                      (deliveryData?.netPnL || 0) + (fnoData?.netPnL || 0),
+                    ),
+                    marginLeft: 10,
+                  }}
+                >{`₹${(
+                  (deliveryData?.netPnL || 0) + (fnoData?.netPnL || 0)
+                ).toFixed(2)}`}</h3>
+                {fnoData && (
+                  <>
+                    <h3
+                      style={{
+                        color: theme.textSecondary,
+                        marginLeft: 20,
+                      }}
+                    >
+                      FnO
+                    </h3>
+                    <h3
+                      style={{
+                        color: getColor(fnoData.netPnL),
+                        marginLeft: 10,
+                      }}
+                    >{` ₹${fnoData.netPnL}`}</h3>
+                  </>
+                )}
+                {deliveryData && (
+                  <>
+                    <h3
+                      style={{
+                        color: theme.textSecondary,
+                        marginLeft: 20,
+                      }}
+                    >
+                      Equity
+                    </h3>
+                    <h3
+                      style={{
+                        color: getColor(deliveryData.netPnL),
+                        marginLeft: 10,
+                      }}
+                    >{`₹${deliveryData.netPnL}`}</h3>
+                  </>
+                )}
+              </Box>
+              <TotalPnL />
+            </Summary>
+            <CalendarPnL />
+          </Flex>
+          <ProfitByDateRange />
+        </>
       )}
-      <ProfitByDateRange />
       {fnoData && fnoData.trades.length > 0 && <Fno fnoData={fnoData} />}
       {deliveryData && deliveryData.trades.length > 0 && (
         <>

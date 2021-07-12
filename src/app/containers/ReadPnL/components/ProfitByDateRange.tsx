@@ -78,7 +78,13 @@ export const ProfitByDateRange = () => {
             />
           </Grid>
           <Grid item xs={4}>
-            <Box display={'flex'} justifyContent={'space-around'}>
+            <Box
+              display={'flex'}
+              justifyContent={'space-around'}
+              alignItems={'center'}
+              p={1}
+              style={{ backgroundColor: '#fff', borderRadius: 10 }}
+            >
               <TextField
                 label="Capital"
                 variant="outlined"
