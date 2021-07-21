@@ -20,6 +20,7 @@ import { CalendarPnL } from './components/Fno/CalendarPnL';
 import { Box, Grid } from '@material-ui/core';
 import { DropzoneArea } from 'material-ui-dropzone';
 import { ProfitByDateRange } from './components/ProfitByDateRange';
+import ProfitTrend from './components/TotalPnL/ProfitTrend';
 
 interface Props {}
 function getColor(v) {
@@ -141,6 +142,7 @@ export const ReadPnL = memo((props: Props) => {
             </Grid>
           </Grid>
           <ProfitByDateRange />
+          <ProfitTrend />
         </>
       )}
       {fnoData && fnoData.trades.length > 0 && <Fno fnoData={fnoData} />}

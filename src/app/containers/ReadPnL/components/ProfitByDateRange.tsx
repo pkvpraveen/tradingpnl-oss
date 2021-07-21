@@ -30,8 +30,8 @@ function getColor(v) {
 export const ProfitByDateRange = () => {
   const [state, setState] = useState([
     {
-      startDate: new Date(),
-      endDate: addDays(new Date(), 7),
+      startDate: addDays(new Date(), -6),
+      endDate: new Date(),
       key: 'selection',
     },
   ]);
