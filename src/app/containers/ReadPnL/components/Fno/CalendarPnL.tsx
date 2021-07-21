@@ -7,9 +7,9 @@ import { useSelector } from 'react-redux';
 import { selectDeliveryData, selectFnOData } from '../../selectors';
 import { Trade } from '../../types';
 import styled from 'styled-components/macro';
-import Dialog from 'react-dialog';
 import 'react-dialog/css/index.css';
 import { TradesTable } from './TradesTable';
+import { Dialog } from '@material-ui/core';
 
 const localizer = momentLocalizer(moment);
 
@@ -59,7 +59,6 @@ export const CalendarPnL = () => {
     }
   });
   function onEventClick(event) {
-    console.log(event.rows);
     setTrades(event.rows);
     setOpen(true);
   }
@@ -89,10 +88,10 @@ export const CalendarPnL = () => {
           title={`Trades on ${moment(getDate(trades[0])).format(
             'DD MMM YYYY',
           )}`}
-          modal={true}
+          open={open}
           onClose={handleClose}
-          height="auto"
-          width="auto"
+          fullWidth
+          maxWidth="lg"
         >
           <DialogContents>
             <TradesTable trades={trades} />
@@ -105,7 +104,6 @@ export const CalendarPnL = () => {
 
 const Div = styled.div`
   margin: 3rem 0;
-  width: 50%;
   .rbc-calendar {
     background-color: #fff;
   }

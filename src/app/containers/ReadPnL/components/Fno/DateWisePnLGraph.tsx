@@ -33,7 +33,7 @@ export function DateWisePnLGraph() {
   });
   const options = {
     showAllTooltips: true,
-
+    responsive: true,
     tooltipEvents: [],
     scales: {
       yAxes: [

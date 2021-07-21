@@ -86,7 +86,8 @@ export const TradesTable = (props: Props) => {
   const data = trades.map((row: Trade) => {
     return {
       [columns[0].columns[0].accessor]: row.scripName,
-      [columns[0].columns[1].accessor]: row.symbol,
+      [columns[0].columns[1].accessor]:
+        row.scriptOpt === 'EQ' ? row.symbol : row.scripCode,
       [columns[0].columns[2].accessor]: row.buyQuantity,
       [columns[0].columns[3].accessor]: row.buyRate,
       [columns[0].columns[4].accessor]: row.buyAmount,

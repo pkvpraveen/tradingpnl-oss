@@ -67,17 +67,17 @@ export const ProfitByDateRange = () => {
       <Box mt={1}>
         <Title as="h2">See Profit for a date range</Title>
         <Grid container spacing={2}>
-          <Grid item xs={8}>
+          <Grid item md={6} xs={12}>
             <DateRangePicker
               showSelectionPreview={true}
               moveRangeOnFirstSelection={false}
-              months={2}
+              months={1}
               direction="horizontal"
               ranges={state}
               onChange={item => setState([item.selection])}
             />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item md={6} xs={12}>
             <Box
               display={'flex'}
               justifyContent={'space-around'}

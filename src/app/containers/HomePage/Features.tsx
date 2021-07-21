@@ -14,30 +14,11 @@ export function Features() {
         how to use this application
       </Lead>
       <List>
-        <Feature>
-          <Content>
-            <ReadPnL />
-          </Content>
-        </Feature>
+        <ReadPnL />
       </List>
     </>
   );
 }
-
-const Feature = styled.li`
-  display: flex;
-  margin: 6.25rem 0 6.25rem 2.25rem;
-
-  .feature-icon {
-    width: 6.25rem;
-    height: 6.25rem;
-    margin-right: 2.25rem;
-    flex-shrink: 0;
-  }
-`;
-const Content = styled.div`
-  flex: 1;
-`;
 
 const List = styled.ul`
   padding: 0;

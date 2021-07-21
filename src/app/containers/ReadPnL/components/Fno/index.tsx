@@ -165,6 +165,5 @@ export function Fno(props: Props) {
 }
 
 const Div = styled.div`
-  min-width: 1500px;
   margin: 0 auto;
 `;

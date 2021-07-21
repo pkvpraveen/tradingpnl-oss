@@ -4,13 +4,16 @@ import { Logo } from './Logo';
 import { StyleConstants } from 'styles/StyleConstants';
 import { Nav } from './Nav';
 import { PageWrapper } from '../../components/PageWrapper';
+import { Hidden } from '@material-ui/core';
 
 export function NavBar() {
   return (
     <Wrapper>
       <PageWrapper>
         <Logo />
-        <Nav />
+        <Hidden xsDown>
+          <Nav />
+        </Hidden>
       </PageWrapper>
     </Wrapper>
   );

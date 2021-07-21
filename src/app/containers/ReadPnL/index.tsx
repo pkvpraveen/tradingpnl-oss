@@ -7,7 +7,7 @@
 import React, { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import readXlsxFile from 'read-excel-file';
-import styled, { useTheme } from 'styled-components/macro';
+import { useTheme } from 'styled-components/macro';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { Title } from '../HomePage/components/Title';
 import { Fno } from './components/Fno';
@@ -76,8 +76,8 @@ export const ReadPnL = memo((props: Props) => {
       {((deliveryData && deliveryData?.trades.length > 0) ||
         (fnoData && fnoData.trades.length > 0)) && (
         <>
-          <Flex>
-            <Summary>
+          <Grid container spacing={2}>
+            <Grid item md={6} xs={12}>
               <Title as="h2">Summary</Title>
               <Box display="flex">
                 <h3
@@ -135,9 +135,11 @@ export const ReadPnL = memo((props: Props) => {
                 )}
               </Box>
               <TotalPnL />
-            </Summary>
-            <CalendarPnL />
-          </Flex>
+            </Grid>
+            <Grid item md={6} xs={12}>
+              <CalendarPnL />
+            </Grid>
+          </Grid>
           <ProfitByDateRange />
         </>
       )}
@@ -154,12 +156,3 @@ export const ReadPnL = memo((props: Props) => {
     </>
   );
 });
-
-const Flex = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const Summary = styled.div`
-  width: 50%;
-`;
