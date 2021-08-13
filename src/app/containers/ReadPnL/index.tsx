@@ -22,6 +22,7 @@ import { DropzoneArea } from 'material-ui-dropzone';
 import { ProfitByDateRange } from './components/ProfitByDateRange';
 import ProfitTrend from './components/TotalPnL/ProfitTrend';
 import Content from '../../components/Content';
+import { A } from '../../components/A';
 
 interface Props {}
 function getColor(v) {
@@ -56,7 +57,16 @@ export const ReadPnL = memo((props: Props) => {
           <Content>
             This application does not export any data. All data resides only in
             your browser. Feel free to disconnect internet when you upload your
-            pnl if you are in doubt.
+            pnl if you are in doubt. Don't have your pnl handy but want to try
+            out the tool? Download my pnl and try... here is my{' '}
+            <A href="./assets/P&L_Report_HJ32423_234343_FO.xlsx" download>
+              F&O
+            </A>{' '}
+            and{' '}
+            <A href="./assets/P&L_Report_AF324232333_2182_EQ.xlsx" download>
+              Equity
+            </A>{' '}
+            pnl
           </Content>
           <Content>
             Currently working for Upstox only. Zerodha and Angel coming soon....
