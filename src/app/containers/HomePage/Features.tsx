@@ -22,5 +22,5 @@ export function Features() {
 
 const List = styled.ul`
   padding: 0;
-  margin: 6.25rem 0 0 0;
+  margin: 2.25rem 0 0 0;
 `;

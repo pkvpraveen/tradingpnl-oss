@@ -7,9 +7,10 @@ import { Title } from '../HomePage/components/Title';
 import Login from './assets/login.png';
 import MenuLink from './assets/keystone.jpg';
 import Download from './assets/export.png';
-import Upload from './assets/upload.jpg';
-import Success from './assets/success.jpg';
+import Upload from './assets/upload.png';
+import Success from './assets/success.png';
 import { Link as RouterLink } from 'react-router-dom';
+import { A } from '../../components/A';
 
 export const Help = () => {
   return (
@@ -24,7 +25,12 @@ export const Help = () => {
       <NavBar />
       <PageWrapper>
         <Title>How to use this application</Title>
-        <Content>Login to console</Content>
+        <Content>
+          Login to{' '}
+          <A target="_blank" href={'https://keystone.upstox.com/'}>
+            console(Keystone)
+          </A>
+        </Content>
         <Image src={Login} alt={'login to bo'} />
         <Content>Find Profit and Loss statement in menu</Content>
         <Image src={MenuLink} alt={'Find profit and loss statemnt in menu'} />
@@ -40,6 +46,11 @@ export const Help = () => {
         <Footer>
           <Link to={process.env.PUBLIC_URL + '/'}>Start Analyzing</Link>
         </Footer>
+        <Content>
+          This application does not export any data. All data resides only in
+          your browser. Feel free to disconnect internet when you upload your
+          pnl if you are in doubt.
+        </Content>
       </PageWrapper>
     </>
   );
