@@ -13,6 +13,12 @@
 
 # The following redirect is intended for use with most SPAs that handle routing internally.
 [[redirects]]
+  from = "https://tradingpnl.netlify.app"
+  to = "https://tradingpnl.in"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
