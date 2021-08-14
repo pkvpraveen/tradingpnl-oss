@@ -13,8 +13,8 @@
 
 # The following redirect is intended for use with most SPAs that handle routing internally.
 [[redirects]]
-  from = "https://tradingpnl.netlify.app"
-  to = "https://tradingpnl.in"
+  from = "https://tradingpnl.netlify.app/*"
+  to = "https://tradingpnl.in/:splat"
   status = 301
   force = true
 
