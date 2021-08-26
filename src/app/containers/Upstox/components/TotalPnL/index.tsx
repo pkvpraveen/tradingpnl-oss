@@ -7,11 +7,11 @@ import * as React from 'react';
 import styled, { useTheme } from 'styled-components/macro';
 import { BarChart } from '../../../../components/BarChart';
 import { useSelector } from 'react-redux';
-import { selectDeliveryData, selectFnOData } from '../../selectors';
+import { selectUpstoxDeliveryData, selectUpstoxFnOData } from '../../selectors';
 
 export function TotalPnL() {
-  const deliveryData = useSelector(selectDeliveryData);
-  const fnoData = useSelector(selectFnOData);
+  const deliveryData = useSelector(selectUpstoxDeliveryData);
+  const fnoData = useSelector(selectUpstoxFnOData);
   const theme = useTheme();
   const options = {
     scales: {

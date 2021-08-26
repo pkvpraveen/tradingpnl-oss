@@ -1,22 +1,9 @@
 import React from 'react';
-import { BarChart } from '../../../../components/BarChart';
-import { useSelector } from 'react-redux';
-import { selectDeliveryData } from '../../selectors';
+import { BarChart } from '../BarChart';
 import { useTheme } from 'styled-components/macro';
-import { Trade } from '../../types';
 
-export function ScriptWisePnLGraph() {
-  const deliveryData = useSelector(selectDeliveryData);
+export function BarGraph({ graphData }) {
   const theme = useTheme();
-  const graphData: any = {};
-  if (deliveryData) {
-    deliveryData.trades.forEach((row: Trade) => {
-      const scrip = row.scripName;
-      graphData[scrip] = graphData[scrip]
-        ? graphData[scrip] + row.profit
-        : row.profit;
-    });
-  }
   const options = {
     showAllTooltips: true,
 

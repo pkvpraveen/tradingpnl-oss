@@ -5,8 +5,8 @@ import { ContainerState, Trade } from './types';
 // The initial state of the ReadPnL container
 export const initialState: ContainerState = {};
 
-const readPnLSlice = createSlice({
-  name: 'readPnL',
+const upstoxSlice = createSlice({
+  name: 'upstox',
   initialState,
   reducers: {
     loadEQData(state, action: PayloadAction<any>) {
@@ -18,11 +18,7 @@ const readPnLSlice = createSlice({
   },
 });
 
-export const {
-  actions: readPnLActions,
-  reducer,
-  name: sliceKey,
-} = readPnLSlice;
+export const { actions: readPnLActions, reducer, name: sliceKey } = upstoxSlice;
 
 function getCharges(rows) {
   return rows.filter(r => r[0] === 'TOTAL')[0][1];
@@ -47,7 +43,7 @@ function mapRow(row) {
   };
 }
 
-function transformData(rows) {
+export const transformData = rows => {
   const grossPnL = parseFloat(rows[8][1]);
   const netPnL = parseFloat(rows[9][1]);
   const charges = parseFloat(getCharges(rows));
@@ -66,4 +62,4 @@ function transformData(rows) {
     }
   });
   return { grossPnL, netPnL, charges, trades: trades.slice(1) };
-}
+};

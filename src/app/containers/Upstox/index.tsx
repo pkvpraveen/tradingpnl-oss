@@ -5,50 +5,37 @@
  */
 
 import React, { memo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import readXlsxFile from 'read-excel-file';
+import { useSelector } from 'react-redux';
 import { useTheme } from 'styled-components/macro';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { Title } from '../HomePage/components/Title';
 import { Fno } from './components/Fno';
 import { readPnLSaga } from './saga';
-import { selectDeliveryData, selectFnOData } from './selectors';
-import { readPnLActions, reducer, sliceKey } from './slice';
+import { selectUpstoxDeliveryData, selectUpstoxFnOData } from './selectors';
+import { reducer, sliceKey } from './slice';
 import { Delivery } from './components/Delivery';
 import { TotalPnL } from './components/TotalPnL';
 import { CalendarPnL } from './components/Fno/CalendarPnL';
 import { Box, Grid } from '@material-ui/core';
-import { DropzoneArea } from 'material-ui-dropzone';
 import { ProfitByDateRange } from './components/ProfitByDateRange';
 import ProfitTrend from './components/TotalPnL/ProfitTrend';
 import Content from '../../components/Content';
 import { A } from '../../components/A';
+import { UploadFiles } from './components/UploadFiles';
 
 interface Props {}
+
 function getColor(v) {
   return parseFloat(v) > 0 ? 'rgba(11, 156, 49, 0.7)' : 'rgba(255, 0, 0, 0.7)';
 }
+
 export const ReadPnL = memo((props: Props) => {
   useInjectReducer({ key: sliceKey, reducer: reducer });
   useInjectSaga({ key: sliceKey, saga: readPnLSaga });
   const theme = useTheme();
 
-  const dispatch = useDispatch();
-
-  function getEQFile(files) {
-    readXlsxFile(files[0]).then(rows => {
-      dispatch(readPnLActions.loadEQData(rows));
-    });
-  }
-
-  function getFnOFile(files) {
-    readXlsxFile(files[0]).then(rows => {
-      dispatch(readPnLActions.loadFnOData(rows));
-    });
-  }
-
-  const fnoData = useSelector(selectFnOData);
-  const deliveryData = useSelector(selectDeliveryData);
+  const fnoData = useSelector(selectUpstoxFnOData);
+  const deliveryData = useSelector(selectUpstoxDeliveryData);
 
   return (
     <>
@@ -72,28 +59,7 @@ export const ReadPnL = memo((props: Props) => {
             Currently working for Upstox only. Zerodha and Angel coming soon....
           </Content>
         </Grid>
-        <Grid item xs={12} md={6}>
-          <DropzoneArea
-            onChange={getEQFile}
-            acceptedFiles={[
-              'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-            ]}
-            filesLimit={1}
-            useChipsForPreview
-            dropzoneText="Upload Equity P&L excel"
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <DropzoneArea
-            onChange={getFnOFile}
-            filesLimit={1}
-            acceptedFiles={[
-              'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-            ]}
-            useChipsForPreview
-            dropzoneText="Upload F&O P&L excel"
-          />
-        </Grid>
+        <UploadFiles />
       </Grid>
       {((deliveryData && deliveryData?.trades.length > 0) ||
         (fnoData && fnoData.trades.length > 0)) && (

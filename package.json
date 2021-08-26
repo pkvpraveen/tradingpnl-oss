@@ -73,7 +73,8 @@
     "stylelint-processor-styled-components": "1.10.0",
     "ts-node": "9.0.0",
     "typescript": "4.0.5",
-    "web-vitals": "0.2.4"
+    "web-vitals": "0.2.4",
+    "xls-parser": "3.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
