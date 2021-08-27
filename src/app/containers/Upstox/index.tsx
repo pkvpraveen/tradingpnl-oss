@@ -25,10 +25,6 @@ import { UploadFiles } from './components/UploadFiles';
 
 interface Props {}
 
-function getColor(v) {
-  return parseFloat(v) > 0 ? 'rgba(11, 156, 49, 0.7)' : 'rgba(255, 0, 0, 0.7)';
-}
-
 export const ReadPnL = memo((props: Props) => {
   useInjectReducer({ key: sliceKey, reducer: reducer });
   useInjectSaga({ key: sliceKey, saga: readPnLSaga });
