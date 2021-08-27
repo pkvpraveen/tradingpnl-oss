@@ -66,62 +66,6 @@ export const ReadPnL = memo((props: Props) => {
         <>
           <Grid container spacing={2}>
             <Grid item md={6} xs={12}>
-              <Title as="h2">Summary</Title>
-              <Box display="flex">
-                <h3
-                  style={{
-                    color: theme.textSecondary,
-                  }}
-                >
-                  Total Profit
-                </h3>
-                <h3
-                  style={{
-                    color: getColor(
-                      (deliveryData?.netPnL || 0) + (fnoData?.netPnL || 0),
-                    ),
-                    marginLeft: 10,
-                  }}
-                >{`₹${(
-                  (deliveryData?.netPnL || 0) + (fnoData?.netPnL || 0)
-                ).toFixed(2)}`}</h3>
-                {fnoData && (
-                  <>
-                    <h3
-                      style={{
-                        color: theme.textSecondary,
-                        marginLeft: 20,
-                      }}
-                    >
-                      FnO
-                    </h3>
-                    <h3
-                      style={{
-                        color: getColor(fnoData.netPnL),
-                        marginLeft: 10,
-                      }}
-                    >{` ₹${fnoData.netPnL}`}</h3>
-                  </>
-                )}
-                {deliveryData && (
-                  <>
-                    <h3
-                      style={{
-                        color: theme.textSecondary,
-                        marginLeft: 20,
-                      }}
-                    >
-                      Equity
-                    </h3>
-                    <h3
-                      style={{
-                        color: getColor(deliveryData.netPnL),
-                        marginLeft: 10,
-                      }}
-                    >{`₹${deliveryData.netPnL}`}</h3>
-                  </>
-                )}
-              </Box>
               <TotalPnL />
             </Grid>
             <Grid item md={6} xs={12}>

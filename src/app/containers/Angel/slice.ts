@@ -32,7 +32,7 @@ function getTotalCharges(rows) {
     (sum, row) => sum + row.Brokerage + row['Other Charges'],
     0,
   );
-  return total.toFixed(2);
+  return total;
 }
 function getDate(buy, sell) {
   const buyDate = moment(buy);

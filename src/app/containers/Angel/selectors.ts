@@ -26,3 +26,9 @@ export const selectAngelEQGrossPnl = createSelector([selectDomain], state => {
 export const selectAngelFnOGrossPnl = createSelector([selectDomain], state => {
   return state.fnoTrades.reduce((sum, trade) => sum + trade.profit, 0);
 });
+export const selectAngelEQCharges = createSelector([selectDomain], state => {
+  return state.eqCharges;
+});
+export const selectAngelFnOCharges = createSelector([selectDomain], state => {
+  return state.fnoCharges;
+});

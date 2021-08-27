@@ -5,6 +5,7 @@ import { angelActions } from '../slice';
 import { useDispatch, useSelector } from 'react-redux';
 import xlsParser from 'xls-parser';
 import { selectBroker } from '../../HomePage/selectors';
+import Content from '../../../components/Content';
 
 export function UploadFiles() {
   const dispatch = useDispatch();
@@ -41,6 +42,7 @@ export function UploadFiles() {
           useChipsForPreview
           dropzoneText="Upload Equity P&L excel"
         />
+        <Content>Upload Equity_Transaction_1.xls</Content>
       </Grid>
       <Grid item xs={12} md={6}>
         <DropzoneArea
@@ -52,6 +54,7 @@ export function UploadFiles() {
           useChipsForPreview
           dropzoneText="Upload F&O P&L excel"
         />
+        <Content>Upload FNO_Transaction_1.xls</Content>
       </Grid>
     </Grid>
   );
