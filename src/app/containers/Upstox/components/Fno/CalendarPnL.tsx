@@ -4,7 +4,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css'; // if using DnD
 import moment from 'moment';
 import { useSelector } from 'react-redux';
-import { selectDeliveryData, selectFnOData } from '../../selectors';
+import { selectUpstoxDeliveryData, selectUpstoxFnOData } from '../../selectors';
 import { Trade } from '../../types';
 import styled from 'styled-components/macro';
 import 'react-dialog/css/index.css';
@@ -39,8 +39,8 @@ function mergeTrades(fno, delivery) {
 }
 
 export const CalendarPnL = () => {
-  const fnoData = useSelector(selectFnOData);
-  const deliveryData = useSelector(selectDeliveryData);
+  const fnoData = useSelector(selectUpstoxFnOData);
+  const deliveryData = useSelector(selectUpstoxDeliveryData);
   const [open, setOpen] = useState(false);
   const [trades, setTrades] = useState<Array<Trade>>([]);
   const graphData: any = {};
@@ -78,7 +78,7 @@ export const CalendarPnL = () => {
         views={['month', 'agenda']}
         startAccessor="start"
         endAccessor="end"
-        max={moment()}
+        max={new Date()}
         style={{ height: 500 }}
         eventPropGetter={eventStyleGetter}
         onSelectEvent={onEventClick}

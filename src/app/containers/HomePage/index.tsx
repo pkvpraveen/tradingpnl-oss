@@ -3,8 +3,11 @@ import { Helmet } from 'react-helmet-async';
 import { NavBar } from '../NavBar';
 import { Features } from './Features';
 import { PageWrapper } from 'app/components/PageWrapper';
+import { useInjectReducer } from '../../../utils/redux-injectors';
+import { reducer, sliceKey } from './slice';
 
 export function HomePage() {
+  useInjectReducer({ key: sliceKey, reducer: reducer });
   return (
     <>
       <Helmet>

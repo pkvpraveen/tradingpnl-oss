@@ -11,7 +11,7 @@ import { Line } from 'react-chartjs-2';
 import { Trade } from '../../types';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
-import { selectDeliveryData, selectFnOData } from '../../selectors';
+import { selectUpstoxDeliveryData, selectUpstoxFnOData } from '../../selectors';
 import styled, { useTheme } from 'styled-components/macro';
 
 function getDate(row: Trade) {
@@ -32,8 +32,8 @@ function getTrades(fnoData, deliveryData, showFno, showDelivery) {
 }
 
 const ProfitTrend = () => {
-  const fnoData = useSelector(selectFnOData);
-  const deliveryData = useSelector(selectDeliveryData);
+  const fnoData = useSelector(selectUpstoxFnOData);
+  const deliveryData = useSelector(selectUpstoxDeliveryData);
   const [showFno, setShowFno] = useState(true);
   const [showEq, setShowEq] = useState(true);
   const theme = useTheme();

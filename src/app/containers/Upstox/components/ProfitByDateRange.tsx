@@ -4,7 +4,7 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 import { DateRangePicker } from 'react-date-range';
 import { addDays } from 'date-fns';
 import { useSelector } from 'react-redux';
-import { selectDeliveryData, selectFnOData } from '../selectors';
+import { selectUpstoxDeliveryData, selectUpstoxFnOData } from '../selectors';
 import { Trade } from '../types';
 import moment from 'moment';
 import {
@@ -40,8 +40,8 @@ export const ProfitByDateRange = () => {
   const [capital, setCapital] = useState('');
   const startDate = state[0].startDate;
   const endDate = state[0].endDate;
-  const fnoData = useSelector(selectFnOData);
-  const deliveryData = useSelector(selectDeliveryData);
+  const fnoData = useSelector(selectUpstoxFnOData);
+  const deliveryData = useSelector(selectUpstoxDeliveryData);
   const selectedFno = fnoData?.trades?.filter(trade =>
     getDate(trade).isBetween(startDate, endDate, 'day', '[]'),
   );
