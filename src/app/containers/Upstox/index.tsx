@@ -16,7 +16,7 @@ import { reducer, sliceKey } from './slice';
 import { Delivery } from './components/Delivery';
 import { TotalPnL } from './components/TotalPnL';
 import { CalendarPnL } from './components/Fno/CalendarPnL';
-import { Box, Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { ProfitByDateRange } from './components/ProfitByDateRange';
 import ProfitTrend from './components/TotalPnL/ProfitTrend';
 import Content from '../../components/Content';
@@ -56,7 +56,7 @@ export const ReadPnL = memo((props: Props) => {
             pnl
           </Content>
           <Content>
-            Currently working for Upstox only. Zerodha and Angel coming soon....
+            Currently working for Upstox and Angel only. Zerodha coming soon....
           </Content>
         </Grid>
         <UploadFiles />
