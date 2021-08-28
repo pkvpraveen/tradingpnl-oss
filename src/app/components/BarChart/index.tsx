@@ -21,6 +21,6 @@ export const BarChart = memo((props: Props) => {
 });
 
 const Div = styled.div`
-  padding: 2rem 5rem;
+  padding: 2rem 2rem;
   padding-right: 1rem;
 `;

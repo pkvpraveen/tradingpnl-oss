@@ -18,7 +18,7 @@ export default function Angel() {
       <UploadFiles />
       <Grid container spacing={2}>
         {(fnoTrades.length > 0 || eqTrades.length > 0) && (
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={8}>
             <TotalPnL />
           </Grid>
         )}

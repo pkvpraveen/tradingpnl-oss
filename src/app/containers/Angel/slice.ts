@@ -27,12 +27,12 @@ const angelSlice = createSlice({
     },
   },
 });
-function getTotalCharges(rows) {
-  const total = rows.reduce(
-    (sum, row) => sum + row.Brokerage + row['Other Charges'],
+export function getTotalCharges(rows) {
+  return rows.reduce(
+    (sum, row) =>
+      sum + parseFloat(row.Brokerage) + parseFloat(row['Other Charges']),
     0,
   );
-  return total;
 }
 function getDate(buy, sell) {
   const buyDate = moment(buy);

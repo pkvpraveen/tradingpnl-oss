@@ -1,6 +1,6 @@
 import { RootState } from '../../../types';
 import { createSelector } from '@reduxjs/toolkit';
-import { initialState } from './slice';
+import { getTotalCharges, initialState } from './slice';
 
 export const selectDomain = (state: RootState) => state.angel || initialState;
 export const selectAngelEQTrades = createSelector(
@@ -11,13 +11,24 @@ export const selectAngelFnOTrades = createSelector(
   [selectDomain],
   state => state.fnoTrades,
 );
-export const selectAngelEQResidue = createSelector(
-  [selectDomain],
-  state => state.eqResidue,
+function getResidueTrades(residues) {
+  const trades: Array<any> = [];
+  if (residues) {
+    Object.keys(residues).forEach(key => {
+      if (residues[key].buys.length > 0) {
+        trades.push(...residues[key].buys);
+      } else if (residues[key].sells.length > 0) {
+        trades.push(...residues[key].buys);
+      }
+    });
+  }
+  return trades;
+}
+export const selectAngelEQResidue = createSelector([selectDomain], state =>
+  getResidueTrades(state.eqResidue),
 );
-export const selectAngelFnOResidue = createSelector(
-  [selectDomain],
-  state => state.fnoResidue,
+export const selectAngelFnOResidue = createSelector([selectDomain], state =>
+  getResidueTrades(state.fnoResidue),
 );
 
 export const selectAngelEQGrossPnl = createSelector([selectDomain], state => {
@@ -32,3 +43,15 @@ export const selectAngelEQCharges = createSelector([selectDomain], state => {
 export const selectAngelFnOCharges = createSelector([selectDomain], state => {
   return state.fnoCharges;
 });
+export const selectAngelEQResidueCharges = createSelector(
+  [selectDomain],
+  state => {
+    return getTotalCharges(getResidueTrades(state.eqResidue));
+  },
+);
+export const selectAngelFnOResidueCharges = createSelector(
+  [selectDomain],
+  state => {
+    return getTotalCharges(getResidueTrades(state.fnoResidue));
+  },
+);
