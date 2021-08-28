@@ -13,15 +13,7 @@ import { ExpandMore } from '@material-ui/icons';
 import moment from 'moment';
 
 export function ResidueTable({ residues }) {
-  const trades: Array<any> = [];
-  Object.keys(residues).forEach(key => {
-    if (residues[key].buys.length > 0) {
-      trades.push(...residues[key].buys);
-    } else if (residues[key].sells.length > 0) {
-      trades.push(...residues[key].buys);
-    }
-  });
-  if (trades.length === 0) {
+  if (residues.length === 0) {
     return null;
   }
   function print(key, data) {
@@ -45,13 +37,13 @@ export function ResidueTable({ residues }) {
         <Table>
           <TableHead>
             <TableRow>
-              {Object.keys(trades[0]).map(head => (
+              {Object.keys(residues[0]).map(head => (
                 <TableCell key={head}> {head}</TableCell>
               ))}
             </TableRow>
           </TableHead>
           <TableBody>
-            {trades.map((trade, index) => (
+            {residues.map((trade, index) => (
               <TableRow key={index}>
                 {Object.entries(trade).map(entry => (
                   <TableCell key={entry[0]}>

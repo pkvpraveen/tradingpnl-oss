@@ -4,8 +4,10 @@ import { useSelector } from 'react-redux';
 import {
   selectAngelEQCharges,
   selectAngelEQGrossPnl,
+  selectAngelEQResidueCharges,
   selectAngelFnOCharges,
   selectAngelFnOGrossPnl,
+  selectAngelFnOResidueCharges,
 } from '../selectors';
 
 export function TotalPnL() {
@@ -13,16 +15,18 @@ export function TotalPnL() {
   const fnoGrossPnL = useSelector(selectAngelFnOGrossPnl);
   const eqCharges = useSelector(selectAngelEQCharges);
   const fnoCharges = useSelector(selectAngelFnOCharges);
-  const fnoNetPnL = fnoGrossPnL - fnoCharges;
-  const eqNetPnL = eqGrossPnL - eqCharges;
+  const fnoResidueCharges = useSelector(selectAngelFnOResidueCharges);
+  const eqResidueCharges = useSelector(selectAngelEQResidueCharges);
+  const fnoNetPnL = fnoGrossPnL - (fnoCharges - fnoResidueCharges);
+  const eqNetPnL = eqGrossPnL - (eqCharges - eqResidueCharges);
 
   return (
     <div>
       <TotalPnLChart
         eqGrossPnL={eqGrossPnL}
         fnoGrossPnL={fnoGrossPnL}
-        eqCharges={eqCharges}
-        fnoCharges={fnoCharges}
+        eqCharges={eqCharges - eqResidueCharges}
+        fnoCharges={fnoCharges - fnoResidueCharges}
         fnoNetPnL={fnoNetPnL}
         eqNetPnL={eqNetPnL}
       />
