@@ -4,7 +4,7 @@ import { selectAngelFnOTrades } from '../selectors';
 import { FnOTrade } from '../types';
 import { BarGraph } from '../../../components/BarGraph';
 import { Box, Divider } from '@material-ui/core';
-import { Title } from '../../HomePage/components/Title';
+import { Title } from '../../../components/Title';
 
 export function ExpiryWisePnLGraph() {
   const trades = useSelector(selectAngelFnOTrades);

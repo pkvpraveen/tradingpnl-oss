@@ -1,4 +1,4 @@
-import { Title } from 'app/containers/HomePage/components/Title';
+import { Title } from 'app/components/Title';
 import { ReadPnL } from 'app/containers/Upstox';
 import * as React from 'react';
 import { Lead } from './components/Lead';

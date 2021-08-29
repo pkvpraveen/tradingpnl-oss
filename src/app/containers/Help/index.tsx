@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { NavBar } from '../NavBar';
 import { PageWrapper } from '../../components/PageWrapper';
 import styled from 'styled-components/macro';
-import { Title } from '../HomePage/components/Title';
+import { Title } from '../../components/Title';
 import Login from './assets/login.png';
 import MenuLink from './assets/keystone.jpg';
 import Download from './assets/export.png';

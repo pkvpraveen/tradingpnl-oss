@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { selectAngelEQTrades, selectAngelFnOTrades } from './selectors';
 import { TotalPnL } from './TotalPnL';
 import { ProfitByDateRange } from './ProfitByDateRange';
+import ProfitTrend from './ProfitTrend';
 
 export default function Angel() {
   useInjectReducer({ key: sliceKey, reducer: reducer });
@@ -25,6 +26,9 @@ export default function Angel() {
           </Grid>
           <Grid item xs={12}>
             <ProfitByDateRange />
+          </Grid>
+          <Grid item xs={12}>
+            <ProfitTrend />
           </Grid>
         </Grid>
       )}
