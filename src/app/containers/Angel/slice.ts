@@ -73,6 +73,8 @@ function createFnOTrade(
   sellQuantity,
   sellPrice,
 ) {
+  const profit = (sellPrice - buyPrice) * buyQuantity;
+
   return {
     symbol,
     expiry,
@@ -84,7 +86,7 @@ function createFnOTrade(
     sellDate,
     sellQuantity,
     sellPrice,
-    profit: (sellPrice - buyPrice) * buyQuantity,
+    profit,
     profitDate: getDate(buyDate, sellDate),
   };
 }
@@ -132,6 +134,8 @@ function sortByDate(rows) {
     .map(row => ({
       ...row,
       Date: moment(row.Date.trim(), 'DD-MMM-YYYY').toDate(),
+      Qty: parseInt(row.Qty),
+      Price: parseFloat(row.Price),
     }))
     .sort((a, b) => {
       const a1 = moment(a.Date);
