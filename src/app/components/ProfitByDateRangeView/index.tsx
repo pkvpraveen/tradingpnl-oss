@@ -12,7 +12,7 @@ import {
   Grid,
   TextField,
 } from '@material-ui/core';
-import { Title } from '../../containers/HomePage/components/Title';
+import { Title } from '../Title';
 
 function getColor(v) {
   return v > 0 ? 'rgba(11, 156, 49, 0.7)' : 'rgba(255, 0, 0, 0.7)';

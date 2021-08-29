@@ -8,7 +8,7 @@ import React, { memo } from 'react';
 import { useSelector } from 'react-redux';
 import { useTheme } from 'styled-components/macro';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
-import { Title } from '../HomePage/components/Title';
+import { Title } from '../../components/Title';
 import { Fno } from './components/Fno';
 import { readPnLSaga } from './saga';
 import { selectUpstoxDeliveryData, selectUpstoxFnOData } from './selectors';

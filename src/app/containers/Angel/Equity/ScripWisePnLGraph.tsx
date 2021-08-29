@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { selectAngelEQTrades } from '../selectors';
 import { EQTrade } from '../types';
 import { BarGraph } from '../../../components/BarGraph';
-import { Title } from '../../HomePage/components/Title';
+import { Title } from '../../../components/Title';
 import { Box, Divider } from '@material-ui/core';
 
 export function ScriptWisePnLGraph() {

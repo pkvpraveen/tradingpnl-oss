@@ -2,7 +2,7 @@ import React from 'react';
 import { BarChart } from '../BarChart';
 import styled, { useTheme } from 'styled-components/macro';
 import { Box } from '@material-ui/core';
-import { Title } from '../../containers/HomePage/components/Title';
+import { Title } from '../Title';
 export function TotalPnLChart({
   eqGrossPnL,
   eqNetPnL,
