@@ -19,6 +19,7 @@ import { Help } from './containers/Help';
 import 'chartjs-plugin-datalabels';
 import Chart from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { Simulate } from './containers/Simulate';
 
 export function App() {
   const { i18n } = useTranslation();
@@ -47,6 +48,11 @@ export function App() {
       <Switch>
         <Route exact path={process.env.PUBLIC_URL + '/'} component={HomePage} />
         <Route exact path={process.env.PUBLIC_URL + '/help'} component={Help} />
+        <Route
+          exact
+          path={process.env.PUBLIC_URL + '/simulate'}
+          component={Simulate}
+        />
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />
