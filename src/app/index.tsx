@@ -17,14 +17,16 @@ import { NotFoundPage } from './containers/NotFoundPage/Loadable';
 import { useTranslation } from 'react-i18next';
 import { Help } from './containers/Help';
 import 'chartjs-plugin-datalabels';
-import Chart from 'chart.js';
+import { Chart } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import zoomPlugin from 'chartjs-plugin-zoom';
 import { Simulate } from './containers/Simulate';
 
 export function App() {
   const { i18n } = useTranslation();
-  Chart.plugins.register(ChartDataLabels);
-  Chart.helpers.merge(Chart.defaults.global.plugins.datalabels, {
+  Chart.register(ChartDataLabels);
+  Chart.register(zoomPlugin);
+  Chart.defaults.set('plugins.datalabels', {
     color: '#aaa',
     align: 'end',
     anchor: 'end',

@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   Box,
+  Button,
   Checkbox,
   Divider,
   FormControlLabel,
@@ -9,6 +10,8 @@ import {
 import { Title } from '../Title';
 import { Line } from 'react-chartjs-2';
 import styled, { useTheme } from 'styled-components/macro';
+import { Chart } from 'chart.js';
+import { CloudDownload } from '@material-ui/icons';
 
 function getTrades(fnoTrades, eqTrades, showFno, showDelivery) {
   if (fnoTrades.length > 0 && eqTrades.length > 0 && showFno && showDelivery) {
@@ -26,6 +29,7 @@ const ProfitTrendView = ({ fnoTrades, eqTrades, getDate }) => {
   const [showFno, setShowFno] = useState(true);
   const [showEq, setShowEq] = useState(true);
   const theme = useTheme();
+  const ref = useRef<Chart>();
   const graphData: any = {};
   const sortedByDate = getTrades(fnoTrades, eqTrades, showFno, showEq)
     .slice()
@@ -61,35 +65,37 @@ const ProfitTrendView = ({ fnoTrades, eqTrades, getDate }) => {
       },
     ],
   };
+  function downloadImage() {
+    if (ref && ref.current) {
+      const x = ref.current?.chartArea.right - 100;
+      const y = ref.current?.chartArea.bottom - 50;
+      const ctx = ref.current.canvas.getContext(
+        '2d',
+      ) as CanvasRenderingContext2D;
+      ctx.font = '30px Arial';
+      ctx.fillStyle = '#ddd';
+      ctx.textAlign = 'center';
+      ctx.fillText('tradingpnl.in', x, y);
+      const imageUrl = ref.current.canvas.toDataURL();
+      var tag = document.createElement('a');
+      tag.href = imageUrl;
+      tag.download = 'pnl';
+      document.body.appendChild(tag);
+      tag.click();
+      document.body.removeChild(tag);
+    }
+  }
 
-  const options = {
-    maintainAspectRatio: false,
-    scales: {
-      yAxes: [
-        {
-          ticks: {
-            beginAtZero: true,
-          },
-          gridLines: {
-            color: theme.border,
-            zeroLineColor: theme.border,
-          },
-        },
-      ],
-      xAxes: [
-        {
-          gridLines: {
-            color: theme.border,
-          },
-        },
-      ],
-    },
-  };
   return (
     <>
       <Divider />
+
       <Box mt={1}>
-        <Box display={'flex'} justifyContent={'space-between'}>
+        <Box
+          display={'flex'}
+          justifyContent={'space-between'}
+          alignItems={'center'}
+        >
           <Title as="h2">How your profit is trending</Title>
           <FormGroup row color="#fff">
             <FormControlLabel
@@ -115,8 +121,60 @@ const ProfitTrendView = ({ fnoTrades, eqTrades, getDate }) => {
               label={<Label>Include Equity</Label>}
             />
           </FormGroup>
+          <Box mr={1}>
+            <Button startIcon={<CloudDownload />} onClick={downloadImage}>
+              Download
+            </Button>
+          </Box>
         </Box>
-        <Line data={data} options={options} height={500} />
+        <Line
+          data={data}
+          ref={ref}
+          options={{
+            plugins: {
+              zoom: {
+                pan: {
+                  enabled: true,
+                  mode: 'x',
+                  onPan: ctx => {
+                    ctx.chart.canvas.style.cursor = 'move';
+                  },
+                  onPanComplete: ctx => {
+                    ctx.chart.canvas.style.cursor = 'auto';
+                  },
+                },
+                zoom: {
+                  wheel: {
+                    enabled: true,
+                  },
+                  pinch: {
+                    enabled: true,
+                  },
+                  onZoom: ctx => {
+                    ctx.chart.canvas.style.cursor = 'zoom-in';
+                  },
+                  onZoomComplete: ctx => {
+                    ctx.chart.canvas.style.cursor = 'auto';
+                  },
+                  mode: 'x',
+                },
+              },
+            },
+            maintainAspectRatio: true,
+            scales: {
+              y: {
+                grid: {
+                  color: theme.border,
+                },
+              },
+              x: {
+                grid: {
+                  color: theme.border,
+                },
+              },
+            },
+          }}
+        />
       </Box>
     </>
   );

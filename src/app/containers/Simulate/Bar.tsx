@@ -21,24 +21,17 @@ export function BarChart({
     maintainAspectRatio: false,
     tooltipEvents: [],
     scales: {
-      yAxes: [
-        {
-          ticks: {
-            beginAtZero: true,
-          },
-          gridLines: {
-            color: theme.border,
-            zeroLineColor: theme.border,
-          },
+      y: {
+        beginAtZero: true,
+        grid: {
+          color: theme.border,
         },
-      ],
-      xAxes: [
-        {
-          gridLines: {
-            color: theme.border,
-          },
+      },
+      x: {
+        grid: {
+          color: theme.border,
         },
-      ],
+      },
     },
   };
   const graphData: any = {};
