@@ -122,8 +122,11 @@ const ProfitTrendView = ({ fnoTrades, eqTrades, getDate }) => {
             />
           </FormGroup>
           <Box mr={1}>
-            <Button startIcon={<CloudDownload />} onClick={downloadImage}>
-              Download
+            <Button
+              startIcon={<CloudDownload htmlColor={theme.text} />}
+              onClick={downloadImage}
+            >
+              <Label>Download</Label>
             </Button>
           </Box>
         </Box>
