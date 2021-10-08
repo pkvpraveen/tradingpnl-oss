@@ -20,8 +20,12 @@ const upstoxSlice = createSlice({
 
 export const { actions: readPnLActions, reducer, name: sliceKey } = upstoxSlice;
 
-function getCharges(rows) {
-  return rows.filter(r => r[0] === 'TOTAL')[0][1];
+function getValue(rows, key) {
+  const value = rows.filter(r => r[0] === key)[0][1];
+  if (isNaN(value) && value.charAt(0) === '₹') {
+    return parseFloat(value.replaceAll(',', '').substring(1));
+  }
+  return parseFloat(value);
 }
 
 function mapRow(row) {
@@ -44,9 +48,9 @@ function mapRow(row) {
 }
 
 export const transformData = rows => {
-  const grossPnL = parseFloat(rows[8][1]);
-  const netPnL = parseFloat(rows[9][1]);
-  const charges = parseFloat(getCharges(rows));
+  const grossPnL = getValue(rows, 'Gross P&L');
+  const netPnL = getValue(rows, 'Net P&L');
+  const charges = getValue(rows, 'TOTAL');
   const trades: Array<Trade> = [];
   let started = false;
   let ended = false;
