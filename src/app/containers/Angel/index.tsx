@@ -6,15 +6,21 @@ import { sliceKey, reducer } from './slice';
 import { Equity } from './Equity';
 import { FnO } from './FnO';
 import { useSelector } from 'react-redux';
-import { selectAngelEQTrades, selectAngelFnOTrades } from './selectors';
+import {
+  selectAngelEQResidue,
+  selectAngelEQTrades,
+  selectAngelFnOTrades,
+} from './selectors';
 import { TotalPnL } from './TotalPnL';
 import { ProfitByDateRange } from './ProfitByDateRange';
 import ProfitTrend from './ProfitTrend';
+import { Residue } from './Equity/Residue';
 
 export default function Angel() {
   useInjectReducer({ key: sliceKey, reducer: reducer });
   const eqTrades = useSelector(selectAngelEQTrades);
   const fnoTrades = useSelector(selectAngelFnOTrades);
+  const eqResidue = useSelector(selectAngelEQResidue);
   const anyExist = fnoTrades.length > 0 || eqTrades.length > 0;
   return (
     <Box mt={3}>
@@ -33,6 +39,7 @@ export default function Angel() {
         </Grid>
       )}
 
+      {eqResidue.length > 0 && <Residue />}
       {fnoTrades.length > 0 && <FnO />}
       {eqTrades.length > 0 && <Equity />}
     </Box>
