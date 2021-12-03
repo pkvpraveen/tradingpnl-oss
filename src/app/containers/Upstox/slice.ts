@@ -24,6 +24,8 @@ function getValue(rows, key) {
   const value = rows.filter(r => r[0] === key)[0][1];
   if (isNaN(value) && value.charAt(0) === '₹') {
     return parseFloat(value.replaceAll(',', '').substring(1));
+  } else if (isNaN(value) && value.charAt(0) === '-') {
+    return parseFloat(value.replaceAll(',', '').substring(3)) * -1;
   }
   return parseFloat(value);
 }
