@@ -5,6 +5,7 @@ import { Features } from './Features';
 import { PageWrapper } from 'app/components/PageWrapper';
 import { useInjectReducer } from '../../../utils/redux-injectors';
 import { reducer, sliceKey } from './slice';
+import Feedback from '../../components/Feedback';
 
 export function HomePage() {
   useInjectReducer({ key: sliceKey, reducer: reducer });
@@ -20,6 +21,7 @@ export function HomePage() {
       <NavBar />
       <PageWrapper>
         <Features />
+        <Feedback />
       </PageWrapper>
     </>
   );

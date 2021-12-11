@@ -22,6 +22,9 @@ export const { actions: readPnLActions, reducer, name: sliceKey } = upstoxSlice;
 
 function getValue(rows, key) {
   const value = rows.filter(r => r[0] === key)[0][1];
+  return getNumericValue(value);
+}
+function getNumericValue(value) {
   if (isNaN(value) && value.charAt(0) === '₹') {
     return parseFloat(value.replaceAll(',', '').substring(1));
   } else if (isNaN(value) && value.charAt(0) === '-') {
@@ -38,12 +41,12 @@ function mapRow(row) {
     scriptOpt: `${row[4]}`,
     buyDate: `${row[5]}`,
     buyQuantity: parseInt(row[6]),
-    buyRate: parseFloat(row[7]),
-    buyAmount: parseFloat(row[8]),
+    buyRate: getNumericValue(row[7]),
+    buyAmount: getNumericValue(row[8]),
     sellDate: `${row[9]}`,
     sellQuantity: parseInt(row[10]),
-    sellRate: parseFloat(row[11]),
-    sellAmount: parseFloat(row[12]),
+    sellRate: getNumericValue(row[11]),
+    sellAmount: getNumericValue(row[12]),
     days: parseInt(row[13]),
     profit: parseFloat(row[14]),
   };

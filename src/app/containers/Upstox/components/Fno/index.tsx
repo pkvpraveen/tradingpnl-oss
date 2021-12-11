@@ -6,7 +6,6 @@
 import * as React from 'react';
 import moment from 'moment';
 import { Table } from 'app/components/Table';
-import { ExpiryWisePnLGraph } from './ExpiryWisePnLGraph';
 import { DateWisePnLGraph } from './DateWisePnLGraph';
 import styled from 'styled-components/macro';
 import { Trade } from '../../types';
@@ -146,7 +145,6 @@ export function Fno(props: Props) {
   return (
     <Div>
       <DateWisePnLGraph />
-      <ExpiryWisePnLGraph />
       <Accordion>
         <AccordionSummary
           style={{ width: '100%', padding: '0 1rem' }}
