@@ -42,11 +42,11 @@ export const ReadPnL = memo((props: Props) => {
             your browser. Feel free to disconnect internet when you upload your
             pnl if you are in doubt. Don't have your pnl handy but want to try
             out the tool? Download my pnl and try... here is my{' '}
-            <A href="./assets/P&L_Report_HJ32423_234343_FO.xlsx" download>
+            <A href="./assets/fno.xlsx" download>
               F&O
             </A>{' '}
             and{' '}
-            <A href="./assets/P&L_Report_AF324232333_2182_EQ.xlsx" download>
+            <A href="./assets/eq.xlsx" download>
               Equity
             </A>{' '}
             pnl
