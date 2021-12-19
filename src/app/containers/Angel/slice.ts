@@ -128,13 +128,16 @@ function segregateByStrikes(rows) {
   });
   return map;
 }
+function getIntValue(value) {
+  return parseInt(value.replaceAll(',', ''));
+}
 function sortByDate(rows) {
   return rows
     .slice()
     .map(row => ({
       ...row,
       Date: moment(row.Date.trim(), 'DD-MMM-YYYY').toDate(),
-      Qty: parseInt(row.Qty),
+      Qty: getIntValue(row.Qty),
       Price: parseFloat(row.Price),
     }))
     .sort((a, b) => {
