@@ -33,6 +33,7 @@ export const ProfitByDateRangeView = ({
   const [showFno, setShowFno] = useState(true);
   const [showEq, setShowEq] = useState(true);
   const [capital, setCapital] = useState('');
+  const [charges, setCharges] = useState('');
   const startDate = state[0].startDate;
   const endDate = state[0].endDate;
   const selectedFno = fnoTrades?.filter(trade =>
@@ -53,6 +54,8 @@ export const ProfitByDateRangeView = ({
     });
   }
   const validCapital = parseFloat(capital);
+  const validCharges = parseFloat(charges || '0.0');
+  sum -= validCharges;
   const percentage = validCapital > 0 ? (sum * 100) / validCapital : 0;
   return (
     <>
@@ -74,7 +77,7 @@ export const ProfitByDateRangeView = ({
             <Box
               display={'flex'}
               justifyContent={'space-around'}
-              alignItems={'center'}
+              alignItems={'flex-start'}
               p={1}
               style={{ backgroundColor: '#fff', borderRadius: 10 }}
             >
@@ -83,8 +86,18 @@ export const ProfitByDateRangeView = ({
                 variant="outlined"
                 size="small"
                 type={'number'}
+                style={{ width: 150 }}
                 value={capital}
                 onChange={e => setCapital(e.target.value)}
+              />
+              <TextField
+                label="Charges"
+                variant="outlined"
+                size="small"
+                type={'number'}
+                helperText={'Charges to reduce from profit'}
+                value={charges}
+                onChange={e => setCharges(e.target.value)}
               />
               <FormGroup row>
                 <FormControlLabel
