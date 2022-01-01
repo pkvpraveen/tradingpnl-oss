@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Table } from '../../../components/Table';
 import { Trade } from '../types';
 import moment from 'moment';
@@ -18,6 +18,7 @@ export const TradesTable = ({
   trades: Array<Trade>;
   expanded?: boolean;
 }) => {
+  const [isExpanded, setExpanded] = useState<boolean>(() => expanded);
   const columns = React.useMemo(
     () => [
       {
@@ -124,7 +125,7 @@ export const TradesTable = ({
   });
 
   return (
-    <Accordion expanded={expanded}>
+    <Accordion expanded={isExpanded} onClick={() => setExpanded(prev => !prev)}>
       <AccordionSummary
         style={{ width: '100%', padding: '0 1rem' }}
         expandIcon={<ExpandMore />}
