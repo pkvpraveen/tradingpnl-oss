@@ -1,4 +1,4 @@
-export interface EQTrade {
+export interface Trade {
   symbol: string;
   buyDate: Date;
   buyQuantity: number;
@@ -9,19 +9,11 @@ export interface EQTrade {
   profit: number;
   profitDate: Date;
 }
-export interface FnOTrade {
-  symbol: string;
+export interface EQTrade extends Trade {}
+export interface FnOTrade extends Trade {
   expiry: string;
   option: string;
   strike: number;
-  buyDate: Date;
-  buyQuantity: number;
-  buyPrice: number;
-  sellDate: Date;
-  sellQuantity: number;
-  sellPrice: number;
-  profit: number;
-  profitDate: Date;
 }
 interface AngelState {
   eqTrades: Array<EQTrade>;

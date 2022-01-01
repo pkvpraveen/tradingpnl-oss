@@ -15,6 +15,8 @@ import { TotalPnL } from './TotalPnL';
 import { ProfitByDateRange } from './ProfitByDateRange';
 import ProfitTrend from './ProfitTrend';
 import { Residue } from './Equity/Residue';
+import { TradesTable } from './TradesTable';
+import { CalendarPnL } from './CalendarPnL';
 
 export default function Angel() {
   useInjectReducer({ key: sliceKey, reducer: reducer });
@@ -31,6 +33,9 @@ export default function Angel() {
             <TotalPnL />
           </Grid>
           <Grid item xs={12}>
+            <CalendarPnL />
+          </Grid>
+          <Grid item xs={12}>
             <ProfitByDateRange />
           </Grid>
           <Grid item xs={12}>
@@ -41,7 +46,13 @@ export default function Angel() {
 
       {eqResidue.length > 0 && <Residue />}
       {fnoTrades.length > 0 && <FnO />}
+      {fnoTrades.length > 0 && (
+        <TradesTable title={'FnO Trades Table'} trades={fnoTrades} />
+      )}
       {eqTrades.length > 0 && <Equity />}
+      {eqTrades.length > 0 && (
+        <TradesTable title={'Equity Trades Table'} trades={eqTrades} />
+      )}
     </Box>
   );
 }

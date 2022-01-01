@@ -82,6 +82,7 @@ export const Table = memo((props: Props) => {
 
 const Div = styled.div`
   padding: 1rem;
+  width: 100%;
 
   table {
     border-collapse: collapse;

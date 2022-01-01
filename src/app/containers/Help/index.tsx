@@ -4,11 +4,11 @@ import { NavBar } from '../NavBar';
 import { PageWrapper } from '../../components/PageWrapper';
 import styled from 'styled-components/macro';
 import { Title } from '../../components/Title';
-import Login from './assets/login.png';
-import MenuLink from './assets/keystone.jpg';
-import Download from './assets/export.png';
 import Upload from './assets/upload.png';
 import Success from './assets/success.png';
+import SelectReport from './assets/selectreport.png';
+import SelectPnl from './assets/selectpnl.png';
+import DownloadReport from './assets/downloadreport.png';
 import { Link as RouterLink } from 'react-router-dom';
 import { A } from '../../components/A';
 
@@ -27,16 +27,17 @@ export const Help = () => {
         <Title>How to use this application</Title>
         <Content>
           Login to{' '}
-          <A target="_blank" href={'https://keystone.upstox.com/'}>
-            console(Keystone)
+          <A target="_blank" href={'https://account.upstox.com/'}>
+            accounts.upstox.com
           </A>
         </Content>
-        <Image src={Login} alt={'login to bo'} />
-        <Content>Find Profit and Loss statement in menu</Content>
-        <Image src={MenuLink} alt={'Find profit and loss statemnt in menu'} />
+        <Content>Go to Reports</Content>
+        <Image src={SelectReport} alt={'Go to reports'} />
+        <Content>Go to Profit & Loss</Content>
+        <Image src={SelectPnl} alt={'Select pnl'} />
         <Content>Download both Equity and F&O reports in excel format</Content>
         <Image
-          src={Download}
+          src={DownloadReport}
           alt={'Download both Equity and F&O reports in excel format'}
         />
         <Content>Upload to this application</Content>
@@ -48,8 +49,8 @@ export const Help = () => {
         </Footer>
         <Content>
           This application does not export any data. All data resides only in
-          your browser. Feel free to disconnect internet when you upload your
-          pnl if you are in doubt.
+          your browser. Still you are in doubt, feel free to disconnect internet
+          when you upload your pnl.
         </Content>
       </PageWrapper>
     </>
