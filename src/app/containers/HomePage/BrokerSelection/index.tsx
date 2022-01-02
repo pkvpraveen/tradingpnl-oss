@@ -35,7 +35,7 @@ export function BrokerSelection() {
       >
         <Tab label="Upstox" />
         <Tab label="Angel" />
-        <Tab label="Zerodha" disabled />
+        <Tab label="Zerodha coming soon" disabled />
       </Tabs>
     </Paper>
   );

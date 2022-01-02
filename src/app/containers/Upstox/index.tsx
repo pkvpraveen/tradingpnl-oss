@@ -51,9 +51,6 @@ export const ReadPnL = memo((props: Props) => {
             </A>{' '}
             pnl
           </Content>
-          <Content>
-            Currently working for Upstox and Angel only. Zerodha coming soon....
-          </Content>
         </Grid>
         <UploadFiles />
       </Grid>
